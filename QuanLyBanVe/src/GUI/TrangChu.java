@@ -15,13 +15,30 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class TrangChu extends JFrame{
-	
+public class TrangChu extends JFrame {
+	private JMenuItem mnThongKeDT;
+	private JMenu mnBaoBieu;
+	private JMenuItem mnPhimTK;
+	private JMenuItem mnNhanVienTK;
+	private JMenu mnTimKiem;
+	private JMenu mnXuLy;
+	private JMenuItem mnDatVe;
+	private JMenuItem mnHoaDon;
+	private JMenuItem mnXuatVe;
+	private JMenu mnDanhMuc;
+	private JMenuItem mnNhanVien;
+	private JMenuItem mnPhim;
+	private JMenu mnHeThong;
+	private JMenuItem mndsPhim;
+	private JMenuItem mnPhimDangChieu;
+	private JMenu mnCV;
+	private JMenuItem mnDangXuat;
+	private JMenuItem mnThongTinCaNhan;
 	public TrangChu() {
 		setBackground(new Color(64, 64, 64));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		setSize(1300, 750);
+		setSize(1100, 750);
 		setLocationRelativeTo(null);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,104 +62,78 @@ public class TrangChu extends JFrame{
 		//thanh menu
 		JLabel lblNewLabel_1 = new JLabel("               ");
 		menuBar.add(lblNewLabel_1);
+		mnDanhMuc = new JMenu("Danh Mục");
+		mnDanhMuc.setPreferredSize(new Dimension(150, 40));
+		mnDanhMuc.setIcon(new ImageIcon("src\\img\\danh-muc.png"));
+		mnDanhMuc.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnDanhMuc);
 
-		JMenu HeThong = new JMenu("Hệ thống");
-		HeThong.setPreferredSize(new Dimension(150, 40));
-		HeThong.setIcon(new ImageIcon("src\\img\\he-thong.png"));
-		HeThong.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(HeThong);
+		mndsPhim = new JMenuItem("Danh Sách Phim");
+		mndsPhim.setPreferredSize(new Dimension(147, 40));
+		mndsPhim.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnDanhMuc.add(mndsPhim);
+
+		mnPhimDangChieu = new JMenuItem("Phim Đang Chiếu");
+		mnPhimDangChieu.setPreferredSize(new Dimension(147, 40));
+		mnPhimDangChieu.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnDanhMuc.add(mnPhimDangChieu);
+
+		mnXuLy = new JMenu("Xử Lý");
+		mnXuLy.setPreferredSize(new Dimension(150, 40));
+		mnXuLy.setIcon(new ImageIcon("src\\img\\xu-li.png"));
+		mnXuLy.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnXuLy);
+
+		mnDatVe = new JMenuItem("Đặt vé");
+		mnDatVe.setPreferredSize(new Dimension(147, 40));
+		mnDatVe.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnXuLy.add(mnDatVe);
+
+		mnTimKiem = new JMenu("Tìm Kiếm");
+		mnTimKiem.setPreferredSize(new Dimension(150, 40));
+		mnTimKiem.setIcon(new ImageIcon("src\\img\\tim-kiem.png"));
+		mnTimKiem.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnTimKiem);
+
+		mnPhimTK = new JMenuItem("Phim");
+		mnPhimTK.setPreferredSize(new Dimension(147, 40));
+		mnPhimTK.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnTimKiem.add(mnPhimTK);
+
+
+		mnBaoBieu = new JMenu("Báo Biểu");
+		mnBaoBieu.setPreferredSize(new Dimension(150, 40));
+		mnBaoBieu.setIcon(new ImageIcon("src\\img\\bao-bieu.png"));
+		mnBaoBieu.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnBaoBieu);
+
+		mnThongKeDT = new JMenuItem("Thống kê doanh thu");
+		mnThongKeDT.setPreferredSize(new Dimension(147, 40));
+		mnThongKeDT.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnBaoBieu.add(mnThongKeDT);
+
+
+		mnCV = new JMenu("");
+		mnCV.setPreferredSize(new Dimension(150, 40));
+		mnCV.setIcon(new ImageIcon("src\\img\\user.png"));
+		mnCV.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnCV);
 		
-		JMenuItem DangXuat = new JMenuItem("Đăng Xuất");
-		DangXuat.setPreferredSize(new Dimension(147, 40));
-		DangXuat.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		HeThong.add(DangXuat);
-
 		
-		JMenu DanhMuc = new JMenu("Danh Mục");
-		DanhMuc.setPreferredSize(new Dimension(150, 40));
-		DanhMuc.setIcon(new ImageIcon("src\\img\\danh-muc.png"));
-		DanhMuc.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(DanhMuc);
-
-		JMenuItem NhanVien = new JMenuItem("Nhân viên");
-		NhanVien.setPreferredSize(new Dimension(147, 40));
-		NhanVien.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		DanhMuc.add(NhanVien);
-
-		JMenuItem Phim = new JMenuItem("Phim");
-		Phim.setPreferredSize(new Dimension(147, 40));
-		Phim.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		DanhMuc.add(Phim);
-
-		JMenu XuLy = new JMenu("Xử Lý");
-		XuLy.setPreferredSize(new Dimension(150, 40));
-		XuLy.setIcon(new ImageIcon("src\\img\\xu-li.png"));
-		XuLy.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(XuLy);
-
-		JMenuItem DatVe = new JMenuItem("Đặt vé");
-		DatVe.setPreferredSize(new Dimension(147, 40));
-		DatVe.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		XuLy.add(DatVe);
-
-		JMenuItem HoaDon = new JMenuItem("Xuất hóa đơn");
-		HoaDon.setPreferredSize(new Dimension(147, 40));
-		HoaDon.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		XuLy.add(HoaDon);
-
-		JMenuItem XuatVe = new JMenuItem("Xuất vé");
-		XuatVe.setPreferredSize(new Dimension(147, 40));
-		XuatVe.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		XuLy.add(XuatVe);
-
-		JMenu TimKiem = new JMenu("Tìm Kiếm");
-		TimKiem.setPreferredSize(new Dimension(150, 40));
-		TimKiem.setIcon(
-				new ImageIcon("src\\img\\tim-kiem.png"));
-		TimKiem.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(TimKiem);
-
-		JMenuItem NhanVienTK = new JMenuItem("Nhân Viên");
-		NhanVienTK.setPreferredSize(new Dimension(147, 40));
-		NhanVienTK.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		TimKiem.add(NhanVienTK);
-
-		JMenuItem PhimTK = new JMenuItem("Phim");
-		PhimTK.setPreferredSize(new Dimension(147, 40));
-		PhimTK.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		TimKiem.add(PhimTK);
-
-
-		JMenu BaoBieu = new JMenu("Báo Biểu");
-		BaoBieu.setPreferredSize(new Dimension(150, 40));
-		BaoBieu.setIcon(new ImageIcon("src\\img\\bao-bieu.png"));
-		BaoBieu.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(BaoBieu);
-
-		JMenuItem ThongKeDT = new JMenuItem("Thống kê doanh thu");
-		ThongKeDT.setPreferredSize(new Dimension(147, 40));
-		ThongKeDT.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		BaoBieu.add(ThongKeDT);
-
-		JLabel lblNewLabel = new JLabel("                                        ");
-		menuBar.add(lblNewLabel);
-
-
-		JLabel lblTK = new JLabel("");
-		lblTK.setIcon(new ImageIcon("src\\img\\user.png"));
-		lblTK.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
-		menuBar.add(lblTK);
+		mnThongTinCaNhan = new JMenuItem("Hồ Sơ Cá Nhân");
+		mnThongTinCaNhan.setPreferredSize(new Dimension(147, 40));
+		mnThongTinCaNhan.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnCV.add(mnThongTinCaNhan);
+		mnDangXuat = new JMenuItem("Đăng Xuất");
+		mnDangXuat.setPreferredSize(new Dimension(147, 40));
+		mnDangXuat.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		mnCV.add(mnDangXuat);
 		// het thanh menu
 		
 		
-		
-		
-		
 	}
-	
 	public static void main(String[] args) {
-		// Khởi tạo giao diện TrangChu
 		TrangChu frame = new TrangChu();
-		frame.setVisible(true); // Hiển thị cửa sổ
+		frame.setVisible(true);
 	}
 }
