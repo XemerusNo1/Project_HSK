@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -112,20 +113,20 @@ public class TrangChu extends JFrame {
 		mnThongKeDT.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		mnBaoBieu.add(mnThongKeDT);
 
-
+		menuBar.add(Box.createHorizontalStrut(60));
 		mnCV = new JMenu("");
-		mnCV.setPreferredSize(new Dimension(150, 40));
+		mnCV.setPreferredSize(new Dimension(120, 40));
 		mnCV.setIcon(new ImageIcon("src\\img\\user.png"));
 		mnCV.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(mnCV);
 		
 		
 		mnThongTinCaNhan = new JMenuItem("Hồ Sơ Cá Nhân");
-		mnThongTinCaNhan.setPreferredSize(new Dimension(147, 40));
+		mnThongTinCaNhan.setPreferredSize(new Dimension(117, 40));
 		mnThongTinCaNhan.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		mnCV.add(mnThongTinCaNhan);
 		mnDangXuat = new JMenuItem("Đăng Xuất");
-		mnDangXuat.setPreferredSize(new Dimension(147, 40));
+		mnDangXuat.setPreferredSize(new Dimension(117, 40));
 		mnDangXuat.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		mnCV.add(mnDangXuat);
 		// het thanh menu
