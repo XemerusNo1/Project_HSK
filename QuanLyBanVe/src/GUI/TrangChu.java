@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -33,10 +34,12 @@ public class TrangChu extends JFrame{
 		menuBar.add(lblNewLabel_2);
 
 		JLabel logo = new JLabel("ABK START CINEMA");
-		logo.setForeground(new Color(0, 0, 102));
-		logo.setFont(new Font("Segoe Script", Font.BOLD, 18));
-		logo.setIcon(
-				new ImageIcon("src\\img\\logo.jpg"));
+		logo.setForeground(new Color(0, 0, 0));
+		logo.setFont(new Font("Heebo", Font.BOLD, 18));
+		
+		ImageIcon originalIcon = new ImageIcon("src\\img\\logo.png");
+		Image resizedImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		logo.setIcon(new ImageIcon(resizedImage));
 		menuBar.add(logo);
 
 		//thanh menu
@@ -45,7 +48,7 @@ public class TrangChu extends JFrame{
 
 		JMenu HeThong = new JMenu("Hệ thống");
 		HeThong.setPreferredSize(new Dimension(150, 40));
-		HeThong.setIcon(new ImageIcon("src\\img\\app-development.png"));
+		HeThong.setIcon(new ImageIcon("src\\img\\he-thong.png"));
 		HeThong.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(HeThong);
 		
@@ -57,7 +60,7 @@ public class TrangChu extends JFrame{
 		
 		JMenu DanhMuc = new JMenu("Danh Mục");
 		DanhMuc.setPreferredSize(new Dimension(150, 40));
-		DanhMuc.setIcon(new ImageIcon("src\\img\\categories.png"));
+		DanhMuc.setIcon(new ImageIcon("src\\img\\danh-muc.png"));
 		DanhMuc.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(DanhMuc);
 
@@ -73,7 +76,7 @@ public class TrangChu extends JFrame{
 
 		JMenu XuLy = new JMenu("Xử Lý");
 		XuLy.setPreferredSize(new Dimension(150, 40));
-		XuLy.setIcon(new ImageIcon("src\\img\\process.png"));
+		XuLy.setIcon(new ImageIcon("src\\img\\xu-li.png"));
 		XuLy.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(XuLy);
 
@@ -95,7 +98,7 @@ public class TrangChu extends JFrame{
 		JMenu TimKiem = new JMenu("Tìm Kiếm");
 		TimKiem.setPreferredSize(new Dimension(150, 40));
 		TimKiem.setIcon(
-				new ImageIcon("src\\img\\seo.png"));
+				new ImageIcon("src\\img\\tim-kiem.png"));
 		TimKiem.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(TimKiem);
 
@@ -112,7 +115,7 @@ public class TrangChu extends JFrame{
 
 		JMenu BaoBieu = new JMenu("Báo Biểu");
 		BaoBieu.setPreferredSize(new Dimension(150, 40));
-		BaoBieu.setIcon(new ImageIcon("src\\img\\increase.png"));
+		BaoBieu.setIcon(new ImageIcon("src\\img\\bao-bieu.png"));
 		BaoBieu.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(BaoBieu);
 
@@ -126,18 +129,15 @@ public class TrangChu extends JFrame{
 
 
 		JLabel lblTK = new JLabel("");
-		lblTK.setIcon(new ImageIcon("src\\img\\user-profile.png"));
+		lblTK.setIcon(new ImageIcon("src\\img\\user.png"));
 		lblTK.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 20));
 		menuBar.add(lblTK);
-
-		JPanel contentPane_1 = new JPanel();
-		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		setContentPane(contentPane_1);
-		contentPane_1.setLayout(new BorderLayout(0, 0));
-
-		GD_TrangChu tc = new GD_TrangChu();
-		contentPane_1.add(tc, BorderLayout.CENTER);
+		// het thanh menu
+		
+		
+		
+		
+		
 	}
 	
 	public static void main(String[] args) {
