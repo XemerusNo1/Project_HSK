@@ -62,7 +62,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		
 		JLabel lblDS = new JLabel("Danh sách phim");
 		lblDS.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lblDS.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\list.png"));
+		lblDS.setIcon(new ImageIcon("src\\Images\\list.png"));
 		lblDS.setForeground(Color.BLACK);
 		
 		JLabel lblNewLabel = new JLabel("Tìm kiếm phim:");
@@ -128,7 +128,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_1.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		
 		JLabel lblNewLabel_2_1 = new JLabel("");
-		lblNewLabel_2_1.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\List_TransFormers.jpg"));
+		lblNewLabel_2_1.setIcon(new ImageIcon("src\\Images\\List_TransFormers.jpg"));
 		lblNewLabel_2_1.setForeground(Color.WHITE);
 		GroupLayout gl_pnlPhim6 = new GroupLayout(pnlPhim6);
 		gl_pnlPhim6.setHorizontalGroup(
@@ -185,7 +185,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_2.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_2 = new JLabel("");
-		lblNewLabel_2_2.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\BachXa3.jpg"));
+		lblNewLabel_2_2.setIcon(new ImageIcon("src\\Images\\BachXa3.jpg"));
 		lblNewLabel_2_2.setForeground(Color.WHITE);
 		GroupLayout gl_pnlPhim7 = new GroupLayout(pnlPhim7);
 		gl_pnlPhim7.setHorizontalGroup(
@@ -242,7 +242,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_4.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_4 = new JLabel("");
-		lblNewLabel_2_4.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\QuyAnTang2.jpg"));
+		lblNewLabel_2_4.setIcon(new ImageIcon("src\\Images\\QuyAnTang2.jpg"));
 		lblNewLabel_2_4.setForeground(Color.WHITE);
 		GroupLayout gl_pnlPhim2 = new GroupLayout(pnlPhim2);
 		gl_pnlPhim2.setHorizontalGroup(
@@ -299,7 +299,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_5.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_5 = new JLabel("");
-		lblNewLabel_2_5.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\Cam.jpg"));
+		lblNewLabel_2_5.setIcon(new ImageIcon("src\\Images\\Cam.jpg"));
 		lblNewLabel_2_5.setForeground(Color.WHITE);
 		GroupLayout gl_pnlPhim5 = new GroupLayout(pnlPhim5);
 		gl_pnlPhim5.setHorizontalGroup(
@@ -356,7 +356,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_6.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_6 = new JLabel("");
-		lblNewLabel_2_6.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\Venom.jpg"));
+		lblNewLabel_2_6.setIcon(new ImageIcon("src\\Images\\Venom.jpg"));
 		lblNewLabel_2_6.setForeground(Color.WHITE);
 		GroupLayout gl_pnlPhim8 = new GroupLayout(pnlPhim8);
 		gl_pnlPhim8.setHorizontalGroup(
@@ -410,7 +410,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_3.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_3 = new JLabel("");
-		lblNewLabel_2_3.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\LIST_KUMATHONG.jpg"));
+		lblNewLabel_2_3.setIcon(new ImageIcon("src\\Images\\LIST_KUMATHONG.jpg"));
 		lblNewLabel_2_3.setForeground(Color.WHITE);
 		
 		btnDatVe2 = new JButton("Mua Vé");
@@ -467,7 +467,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		lblNewLabel_3_7.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		JLabel lblNewLabel_2_7 = new JLabel("");
-		lblNewLabel_2_7.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\Joker.jpg"));
+		lblNewLabel_2_7.setIcon(new ImageIcon("src\\Images\\Joker.jpg"));
 		lblNewLabel_2_7.setForeground(Color.WHITE);
 		
 		btnDatVe6 = new JButton("Mua Vé");
@@ -552,7 +552,7 @@ public class GD_DanhSachPhim extends JPanel implements ActionListener {
 		);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("D:\\Hoc_Tap\\Nam3_HK1\\LT_SK_Java\\Team\\QuanLyRapChieuPhim\\src\\img\\list_MoDomDom.jpg"));
+		lblNewLabel_2.setIcon(new ImageIcon("src\\Images\\list_MoDomDom.jpg"));
 		lblNewLabel_2.setForeground(Color.WHITE);
 		
 		JLabel lblNewLabel_3 = new JLabel("Mộ Đom Đóm");
