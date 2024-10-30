@@ -5,6 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -13,10 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class TrangChu extends JFrame {
+public class TrangChu extends JFrame implements ActionListener, MouseListener{
 	private JMenuItem mnThongKeDT;
 	private JMenu mnBaoBieu;
 	private JMenuItem mnPhimTK;
@@ -35,8 +41,10 @@ public class TrangChu extends JFrame {
 	private JMenu mnCV;
 	private JMenuItem mnDangXuat;
 	private JMenuItem mnThongTinCaNhan;
+	private JMenu mnTrangChu;
+	private JPanel contentPane_1;
 	public TrangChu() {
-		setBackground(new Color(64, 64, 64));
+		setBackground(new Color(35, 33, 33));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setSize(1100, 750);
@@ -53,9 +61,9 @@ public class TrangChu extends JFrame {
 
 		JLabel logo = new JLabel("ABK START CINEMA");
 		logo.setForeground(new Color(0, 0, 0));
-		logo.setFont(new Font("Heebo", Font.BOLD, 18));
+		logo.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
-		ImageIcon originalIcon = new ImageIcon("src\\img\\logo.png");
+		ImageIcon originalIcon = new ImageIcon("src\\Images\\logo.png");
 		Image resizedImage = originalIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 		logo.setIcon(new ImageIcon(resizedImage));
 		menuBar.add(logo);
@@ -63,9 +71,16 @@ public class TrangChu extends JFrame {
 		//thanh menu
 		JLabel lblNewLabel_1 = new JLabel("               ");
 		menuBar.add(lblNewLabel_1);
+		mnTrangChu = new JMenu("Trang Chủ");
+		mnTrangChu.setPreferredSize(new Dimension(150, 40));
+		mnTrangChu.setIcon(new ImageIcon("src\\Images\\home.png"));
+		mnTrangChu.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		menuBar.add(mnTrangChu);
+		
+		
 		mnDanhMuc = new JMenu("Danh Mục");
 		mnDanhMuc.setPreferredSize(new Dimension(150, 40));
-		mnDanhMuc.setIcon(new ImageIcon("src\\img\\danh-muc.png"));
+		mnDanhMuc.setIcon(new ImageIcon("src\\Images\\danh-muc.png"));
 		mnDanhMuc.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(mnDanhMuc);
 
@@ -74,37 +89,9 @@ public class TrangChu extends JFrame {
 		mndsPhim.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		mnDanhMuc.add(mndsPhim);
 
-		mnPhimDangChieu = new JMenuItem("Phim Đang Chiếu");
-		mnPhimDangChieu.setPreferredSize(new Dimension(147, 40));
-		mnPhimDangChieu.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		mnDanhMuc.add(mnPhimDangChieu);
-
-		mnXuLy = new JMenu("Xử Lý");
-		mnXuLy.setPreferredSize(new Dimension(150, 40));
-		mnXuLy.setIcon(new ImageIcon("src\\img\\xu-li.png"));
-		mnXuLy.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(mnXuLy);
-
-		mnDatVe = new JMenuItem("Đặt vé");
-		mnDatVe.setPreferredSize(new Dimension(147, 40));
-		mnDatVe.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		mnXuLy.add(mnDatVe);
-
-		mnTimKiem = new JMenu("Tìm Kiếm");
-		mnTimKiem.setPreferredSize(new Dimension(150, 40));
-		mnTimKiem.setIcon(new ImageIcon("src\\img\\tim-kiem.png"));
-		mnTimKiem.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		menuBar.add(mnTimKiem);
-
-		mnPhimTK = new JMenuItem("Phim");
-		mnPhimTK.setPreferredSize(new Dimension(147, 40));
-		mnPhimTK.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		mnTimKiem.add(mnPhimTK);
-
-
 		mnBaoBieu = new JMenu("Báo Biểu");
 		mnBaoBieu.setPreferredSize(new Dimension(150, 40));
-		mnBaoBieu.setIcon(new ImageIcon("src\\img\\bao-bieu.png"));
+		mnBaoBieu.setIcon(new ImageIcon("src\\Images\\bao-bieu.png"));
 		mnBaoBieu.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(mnBaoBieu);
 
@@ -113,10 +100,10 @@ public class TrangChu extends JFrame {
 		mnThongKeDT.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		mnBaoBieu.add(mnThongKeDT);
 
-		menuBar.add(Box.createHorizontalStrut(60));
+		menuBar.add(Box.createHorizontalStrut(90));
 		mnCV = new JMenu("");
 		mnCV.setPreferredSize(new Dimension(120, 40));
-		mnCV.setIcon(new ImageIcon("src\\img\\user.png"));
+		mnCV.setIcon(new ImageIcon("src\\Images\\user.png"));
 		mnCV.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		menuBar.add(mnCV);
 		
@@ -132,9 +119,69 @@ public class TrangChu extends JFrame {
 		// het thanh menu
 		
 		
+		contentPane_1 = new JPanel();
+		contentPane_1.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane_1);
+		contentPane_1.setLayout(new BorderLayout(0, 0));
+
+//		GD_TrangChu trangChu = new GD_TrangChu();
+//		contentPane_1.add(trangChu, BorderLayout.CENTER);
+		loadPanel(new GD_TrangChu());
+		
+		
+		
+		mnDangXuat.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int xacNhan = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn đăng xuất?","Xác nhận đăng xuất",JOptionPane.YES_NO_OPTION);
+				if(xacNhan == JOptionPane.YES_OPTION) {
+					dispose();
+					GD_DangNhap frameDangNhap = new GD_DangNhap();
+					frameDangNhap.setVisible(true);
+				}
+			}
+		});
+		
+		mndsPhim.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadPanel(new GD_DanhSachPhim());
+			}
+
+		});
+		
+		mnThongKeDT.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			    loadPanel(new GD_ThongKe());
+			}
+
+		});
+		
+		mnThongTinCaNhan.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadPanel(new GD_ThongTinCaNhan());
+            }
+        });
+
+		mnTrangChu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                loadPanel(new GD_TrangChu());
+            }
+        });
+
+		
 	}
-	public static void main(String[] args) {
-		TrangChu frame = new TrangChu();
-		frame.setVisible(true);
+	private void loadPanel(JPanel panel) {
+	    contentPane_1.removeAll();
+	    contentPane_1.add(panel, BorderLayout.CENTER);
+	    contentPane_1.validate();
+	    contentPane_1.repaint();
 	}
+	
 }
