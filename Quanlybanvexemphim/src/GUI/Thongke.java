@@ -6,8 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.Box;
@@ -16,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -27,9 +31,10 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import ConnectDB.CntThongke;
 import ConnectDB.ConnectThongke;
 
-public class Thongke extends JFrame {
+public class Thongke extends JFrame implements ActionListener  {
 	private JLabel CNam;
 	private JLabel CThang;
 	private JComboBox<String> yearComboBox;
@@ -55,6 +60,7 @@ public class Thongke extends JFrame {
 	private Font font;
 	private JLabel Frday;
 	private JLabel Tday;
+	private Object btnchart;
 	private static JLabel maxValue;
 	private static JLabel minValue;
 	public Thongke() {
@@ -135,7 +141,7 @@ public class Thongke extends JFrame {
 	
 		
 		Box btable = Box.createVerticalBox();
-		String [] headers = "STT;Thời gian;Doanh thu;Số lượng vé".split(";");
+		String [] headers = "STT;Thời gian;Doanh thu;Số lượng vé đã bán".split(";");
 		tableModel=new DefaultTableModel(headers,0);
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(table = new JTable(tableModel));
@@ -184,7 +190,7 @@ public class Thongke extends JFrame {
         btnexcel.setIcon(iconexcel);	
         btn.add(btnchart);
         btn.add(btnexcel);
-
+        
         // Tạo panel chính cho phần south
         JPanel southPanel = new JPanel(new BorderLayout());
         southPanel.add(infoPanel, BorderLayout.WEST);
@@ -192,10 +198,43 @@ public class Thongke extends JFrame {
         getMinMaxValues();
         
         add(southPanel, BorderLayout.SOUTH);
-       
+        btnchart.addActionListener(this);
 		setVisible(true);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+        Object o = e.getSource();
+        if (o.equals(btnchart))
+            chartsActions();
+	}
+	private void chartsActions() {
+	    CntThongke doanhThuDAO = new CntThongke();
+	    int nam = Integer.parseInt(yearComboBox.getSelectedItem().toString());
+	    int thang = Integer.parseInt(monthComboBox.getSelectedItem().toString());
+
+	    // Lấy danh sách doanh thu từ cơ sở dữ liệu
+	    List<Double> doanhThuList = doanhThuDAO.getDoanhThuTheoThang(nam, thang);
+	    
+	    // Kiểm tra danh sách không rỗng
+	    if (doanhThuList.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "Không có dữ liệu cho tháng đã chọn.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+	        return;
+	    }
+
+	    // Tạo và hiển thị biểu đồ
+	    Charts chartExample = new Charts("Biểu Đồ Doanh Thu", doanhThuList);
+	    chartExample.setVisible(true);
+	}
+
+
+	private void onXemBieuDoButtonClicked() {
+	    CntThongke doanhThuDAO = new CntThongke();
+	    int nam = Integer.parseInt(yearComboBox.getSelectedItem().toString());
+	    int thang = Integer.parseInt(monthComboBox.getSelectedItem().toString());
+
+	    List<Double> doanhThuList = doanhThuDAO.getDoanhThuTheoThang(nam, thang);
+	    // Vẽ biểu đồ với doanhThuList
+	}
 	 private void getMinMaxValues() {
 	       ConnectThongke dbHelper = new ConnectThongke();
 	        int[] minMaxValues = dbHelper.getMinMaxValues();
