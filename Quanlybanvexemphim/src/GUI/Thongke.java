@@ -135,7 +135,7 @@ public class Thongke extends JFrame {
 	
 		
 		Box btable = Box.createVerticalBox();
-		String [] headers = "STT;Thời gian;Doanh thu".split(";");
+		String [] headers = "STT;Thời gian;Doanh thu;Số lượng vé".split(";");
 		tableModel=new DefaultTableModel(headers,0);
 		JScrollPane scroll = new JScrollPane();
 		scroll.setViewportView(table = new JTable(tableModel));
