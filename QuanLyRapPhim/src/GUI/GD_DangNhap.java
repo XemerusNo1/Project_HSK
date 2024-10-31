@@ -7,19 +7,26 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import DAO.DAO_DangNhap;
+
 
 public class GD_DangNhap extends JFrame {
-    
+	private DAO_DangNhap daoDangNhap;
     private Image backgroundImage;
     private JButton btnDangNhap, btnDangKy;
+	private JTextField txtDangNhap;
+	private Connection connection;
+	private JPasswordField txtMatKhau;
     
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
@@ -48,7 +55,7 @@ public class GD_DangNhap extends JFrame {
         lblDangNhap.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblDangNhap.setForeground(Color.BLACK);
         lblDangNhap.setBounds(255, 250, 400, 40);
-        JTextField txtDangNhap = new JTextField();
+        txtDangNhap = new JTextField();
         txtDangNhap.setBounds(400, 285, 300, 40);
         
         // Mật khẩu
@@ -56,7 +63,7 @@ public class GD_DangNhap extends JFrame {
         lblMatKhau.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblMatKhau.setForeground(Color.BLACK);
         lblMatKhau.setBounds(235, 330, 400, 40);
-        JTextField txtMatKhau = new JTextField();
+        txtMatKhau = new JPasswordField();
         txtMatKhau.setBounds(400, 365, 300, 40);
         
         // nút Đăng nhập
@@ -73,38 +80,29 @@ public class GD_DangNhap extends JFrame {
         btnDangKy.setForeground(Color.WHITE);
         btnDangKy.setBounds(560, 420, 120, 40);
         
-        // Thêm các thành phần vào backgroundPanel
         backgroundPanel.add(lblDangNhap);
         backgroundPanel.add(txtDangNhap);
         backgroundPanel.add(lblMatKhau);
         backgroundPanel.add(txtMatKhau);
         backgroundPanel.add(btnDangNhap);
         backgroundPanel.add(btnDangKy);
-
-        // Gán hành động cho các nút
+        
         btnDangNhap.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int a = 1; // Giả lập logic đăng nhập
-                if (a == 1) {
-                    dispose(); // Đóng giao diện đăng nhập
-                    new TrangChu().setVisible(true); // Mở giao diện TrangChu
-                } else {
-                    JOptionPane.showMessageDialog(GD_DangNhap.this, "Tên đăng nhập hoặc mật khẩu không đúng.");
-                }
+                handleLogin();
             }
         });
 
         btnDangKy.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Đóng giao diện đăng nhập
-                new GD_DangKy().setVisible(true); // Giả sử GD_DangKy là giao diện đăng ký
+                dispose();
+                new GD_DangKy().setVisible(true);
             }
         });
     }
     
-    // JPanel để vẽ background
     private class BackgroundPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -112,4 +110,24 @@ public class GD_DangNhap extends JFrame {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+    //DAO_DangNhap daoDangNhap1 = new DAO_DangNhap();
+    
+    private void handleLogin() {
+        String tenTaiKhoan = txtDangNhap.getText();
+        String matKhau = new String(txtMatKhau.getPassword());
+        
+        // Khởi tạo DAO_DangNhap
+        DAO_DangNhap daoDangNhap = new DAO_DangNhap();
+        
+        // Kiểm tra thông tin đăng nhập
+        if (daoDangNhap.kiemTraDangNhap(tenTaiKhoan, matKhau)) {
+            //JOptionPane.showMessageDialog(this, "Đăng nhập thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        	dispose();
+        	TrangChu frameTrangChu = new TrangChu();
+        	frameTrangChu.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản hoặc mật khẩu không đúng!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }

@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -21,13 +19,18 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DAO.DAO_DangKy;
+
+
 public class GD_DangKy extends JFrame implements ActionListener{
-    
     private Image backgroundImage;
-    private JButton btnDangKy;
-	private JTextField txtDangNhap, txtHoTen, txtSDT, txtMatKhau;
-	private JRadioButton radNam;
-	private JRadioButton radNu;
+    private JTextField txtTenDangNhap; // Khai báo biến ở đây
+    private JTextField txtHoTen;
+    private JTextField txtSDT;
+    private JTextField txtMatKhau1;
+    private JTextField txtNamSinh;
+    private JRadioButton radNam;
+    private JRadioButton radNu;
     public GD_DangKy() {
         setSize(1100, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,19 +44,19 @@ public class GD_DangKy extends JFrame implements ActionListener{
         backgroundPanel.setLayout(null);
         
         //Tên đăng nhập
-        JLabel lblDangNhap = new JLabel("Tên đăng nhập:", SwingConstants.CENTER);
-        lblDangNhap.setFont(new Font("Times New Roman", Font.BOLD, 15));
-        lblDangNhap.setForeground(Color.BLACK);
-        lblDangNhap.setBounds(255, 220, 400, 30);
-        JTextField txtDangNhap = new JTextField();
-        txtDangNhap.setBounds(400, 245, 300, 30);
+        JLabel lblTenDangNhap = new JLabel("Tên đăng nhập:", SwingConstants.CENTER);
+        lblTenDangNhap.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        lblTenDangNhap.setForeground(Color.BLACK);
+        lblTenDangNhap.setBounds(255, 220, 400, 30);
+        txtTenDangNhap = new JTextField();
+        txtTenDangNhap.setBounds(400, 245, 300, 30);
         
         //Họ tên
         JLabel lblHoTen = new JLabel("Họ tên:", SwingConstants.CENTER);
         lblHoTen.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblHoTen.setForeground(Color.BLACK);
         lblHoTen.setBounds(225, 270, 400, 30);
-        JTextField txtHoTen = new JTextField();
+        txtHoTen = new JTextField();
         txtHoTen.setBounds(400, 295, 300, 30);
         
         //Số điện thoại
@@ -61,7 +64,7 @@ public class GD_DangKy extends JFrame implements ActionListener{
         lblSDT.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblSDT.setForeground(Color.BLACK);
         lblSDT.setBounds(245, 320, 400, 30);
-        JTextField txtSDT = new JTextField();
+        txtSDT = new JTextField();
         txtSDT.setBounds(400, 345, 300, 30);
         
         //Năm sinh
@@ -69,7 +72,7 @@ public class GD_DangKy extends JFrame implements ActionListener{
         lblNamSinh.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblNamSinh.setForeground(Color.BLACK);
         lblNamSinh.setBounds(235, 370, 400, 30);
-        JTextField txtNamSinh = new JTextField();
+        txtNamSinh = new JTextField();
         txtNamSinh.setBounds(400, 395, 300, 30);
         
         //Giới tính
@@ -77,12 +80,12 @@ public class GD_DangKy extends JFrame implements ActionListener{
         lblGioiTinh.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblGioiTinh.setForeground(Color.BLACK);
         lblGioiTinh.setBounds(230, 430, 400, 30);
-        JRadioButton radNam = new JRadioButton("Nam");
+        radNam = new JRadioButton("Nam");
         radNam.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         radNam.setBounds(480, 430, 70, 30);
         radNam.setOpaque(false);
         radNam.setFocusPainted(false);
-        JRadioButton radNu = new JRadioButton("Nữ");
+        radNu = new JRadioButton("Nữ");
         radNu.setFont(new Font("Times New Roman", Font.PLAIN, 15));
         radNu.setBounds(580, 430, 70, 30);
         radNu.setOpaque(false);
@@ -97,16 +100,16 @@ public class GD_DangKy extends JFrame implements ActionListener{
         lblMatKhau.setFont(new Font("Times New Roman", Font.BOLD, 15));
         lblMatKhau.setForeground(Color.BLACK);
         lblMatKhau.setBounds(235, 460, 400, 30);
-        JTextField txtMatKhau = new JTextField();
-        txtMatKhau.setBounds(400, 485, 300, 30);
+        txtMatKhau1 = new JTextField();
+        txtMatKhau1.setBounds(400, 485, 300, 30);
         
         //nút đăng ký
-        JButton btnDangNhap = new JButton("Đăng ký");
-        btnDangNhap.setFont(new Font("Times New Roman", Font.BOLD, 15));
-        btnDangNhap.setBackground(Color.BLACK);
-        btnDangNhap.setForeground(Color.WHITE);
-        btnDangNhap.setBounds(490, 530, 120, 40);
-        btnDangNhap.addActionListener(this);
+        JButton btnDangKy1 = new JButton("Đăng ký");
+        btnDangKy1.setFont(new Font("Times New Roman", Font.BOLD, 15));
+        btnDangKy1.setBackground(Color.BLACK);
+        btnDangKy1.setForeground(Color.WHITE);
+        btnDangKy1.setBounds(490, 530, 120, 40);
+        btnDangKy1.addActionListener(this);
         
         //nút trở về
         JButton btnTroVe = new JButton("");
@@ -121,8 +124,8 @@ public class GD_DangKy extends JFrame implements ActionListener{
         
         
         backgroundPanel.add(btnTroVe);
-        backgroundPanel.add(txtDangNhap);
-        backgroundPanel.add(lblDangNhap);
+        backgroundPanel.add(txtTenDangNhap);
+        backgroundPanel.add(lblTenDangNhap);
         backgroundPanel.add(lblHoTen);
         backgroundPanel.add(txtHoTen);
         backgroundPanel.add(lblSDT);
@@ -133,8 +136,29 @@ public class GD_DangKy extends JFrame implements ActionListener{
         backgroundPanel.add(radNam);
         backgroundPanel.add(radNu);
         backgroundPanel.add(lblMatKhau);
-        backgroundPanel.add(txtMatKhau);
-        backgroundPanel.add(btnDangNhap);
+        backgroundPanel.add(txtMatKhau1);
+        backgroundPanel.add(btnDangKy1);
+        btnTroVe.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new GD_DangNhap().setVisible(true);
+				
+			}
+		});
+        
+        btnDangKy1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == btnDangKy1) {
+		            dangKyNhanVien();
+		            dispose();
+		            new GD_DangNhap().setVisible(true);// Gọi phương thức đăng ký khi nhấn nút
+		        }
+				
+			}
+		});
         
     }
     
@@ -146,42 +170,54 @@ public class GD_DangKy extends JFrame implements ActionListener{
         }
     }
 
-    @Override
-	public void actionPerformed(ActionEvent e) {
-    	//dangKyNhanVien();
-    	
-	}
     
     private void dangKyNhanVien() {
-    	String tenDangNhap = txtDangNhap.getText();
-    	String hoTen = txtHoTen.getText();
-    	String matKhau = txtMatKhau.getText();
-    	boolean gioiTinh = radNam.isSelected();
-    	int SDT = Integer.parseInt(txtSDT.getText());
-    	
-    	try {
-    		Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=QuanLyRapChieuPhim;user=sa;password=123");
-    		String sql = "EXEC sp_ThemNhanVien @tenDangNhap = ?, @hoTen = ?, @matKhau = ?, @gioiTinh = ?, @sdt = ?";
-    		PreparedStatement statement = con.prepareStatement(sql);
-    		statement.setString(1, tenDangNhap);
-    		statement.setString(2, hoTen);
-    		statement.setInt(3, SDT);
-    		statement.setBoolean(4, gioiTinh);
-    		statement.setString(5, matKhau);
-    		statement.executeUpdate();
-    		JOptionPane.showMessageDialog(this, "Đăng ký thành công!");
-    		
-    		//Đóng kết nối
-    		statement.close();
-    		con.close();
-    		
-    		
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Đăng ký không thành công!" + e.getMessage());
-			
-		}
-    	
+        // Lấy thông tin từ các trường giao diện
+        String tenTaiKhoan = txtTenDangNhap.getText().trim();
+        String hoTen = txtHoTen.getText().trim();
+        String matKhau = txtMatKhau1.getText().trim();
+        String sdtStr = txtSDT.getText().trim();
+        boolean gioiTinh = radNam.isSelected();
+        String namSinhStr = txtNamSinh.getText().trim();
+        
+        if (tenTaiKhoan.isEmpty() || hoTen.isEmpty() || matKhau.isEmpty() || sdtStr.isEmpty() || namSinhStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int sdt;
+        try {
+            sdt = Integer.parseInt(sdtStr); // Chuyển đổi chuỗi số điện thoại sang int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ! Vui lòng nhập lại.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Gọi DAO_DangKy để thêm vào cơ sở dữ liệu
+        DAO_DangKy daoDangKy = new DAO_DangKy();
+        if (daoDangKy.dangKyNhanVien(hoTen, namSinhStr, sdt, gioiTinh, tenTaiKhoan, matKhau)) {
+            JOptionPane.showMessageDialog(this, "Đăng ký thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            clearFields(); // Làm mới các trường nhập
+        } else {
+            JOptionPane.showMessageDialog(this, "Đăng ký không thành công! Vui lòng thử lại.", "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
+
+    private void clearFields() {
+    	txtTenDangNhap.setText("");
+        txtHoTen.setText("");
+        txtSDT.setText("");
+        txtNamSinh.setText("");
+        txtMatKhau1.setText("");
+        radNam.setSelected(false);
+        radNu.setSelected(false);
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
     
 //    public static void main(String[] args) {
 //    	GD_DangKy frame = new GD_DangKy();
