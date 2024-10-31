@@ -42,6 +42,7 @@ CREATE TABLE Ghe (
     maGhe VARCHAR(50) PRIMARY KEY,
     maPhong VARCHAR(50),
     trangThai BIT,
+	loaiGhe NVARCHAR(50),
     FOREIGN KEY (maPhong) REFERENCES Phong(maPhong)
 );
 GO
@@ -52,7 +53,9 @@ CREATE TABLE NhanVien (
     tenNV NVARCHAR(255),
     namSinh DATE, -- Đổi kiểu dữ liệu thành DATE
     sdt VARCHAR(15),
-    gioiTinh BIT
+    gioiTinh BIT,
+	tenTaiKhoan VARCHAR(80),
+	matKhau VARCHAR(30),
 );
 GO
 
