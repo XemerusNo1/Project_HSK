@@ -4,43 +4,42 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import ConnectDB.connectDB;
-import Entity.DangKy;
+
+import connection.MyConnection;
 
 public class DAO_DangKy {
+	private Connection conn;
+	public DAO_DangKy() {
+		conn = MyConnection.getInstance().getConnection();
+	}
+	public boolean dangKyNhanVien(String hoTen, String namSinh, int sdt, boolean gioiTinh, String tenTaiKhoan, String matKhau) {
+        String sql = "INSERT INTO NhanVien (tenNV, namSinh, sdt, gioiTinh, tenTaiKhoan, matKhau) VALUES (?, ?, ?, ?, ?, ?)";
 
-    // Thêm một tài khoản mới vào bảng NhanVien
-    public boolean themTaiKhoan(DangKy dangKy) {
-        String sql = "INSERT INTO NhanVien (tenDangNhap, hoTen, sdt, gioiTinh, namSinh, matKhau) VALUES (?, ?, ?, ?, ?, ?)";
-        
-        try (Connection conn = connectDB.getInstance().getConnection();  // sửa chỗ này
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            
-            ps.setString(1, dangKy.getTenDangNhap());
-            ps.setString(2, dangKy.getHoTen());
-            ps.setInt(3, dangKy.getSDT());
-            ps.setBoolean(4, dangKy.isGioiTinh());
-            ps.setDate(5, java.sql.Date.valueOf(dangKy.getNamSinh()));
-            ps.setString(6, dangKy.getMatKhau());
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, hoTen);
+            ps.setString(2, namSinh);
+            ps.setString(3, String.valueOf(sdt));
+            ps.setBoolean(4, gioiTinh);
+            ps.setString(5, tenTaiKhoan);
+            ps.setString(6, matKhau);
 
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Trả về true nếu thêm thành công
+            int rowsInserted = ps.executeUpdate();
+            return rowsInserted > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
     
-    // Kiểm tra xem tên đăng nhập đã tồn tại trong bảng NhanVien chưa
-    public boolean kiemTraTenDangNhap(String tenDangNhap) {
-        String sql = "SELECT 1 FROM NhanVien WHERE tenDangNhap = ?";
+    public boolean kiemTraTenDangNhap(String tenTaiKhoan) {
+        String sql = "SELECT 1 FROM NhanVien WHERE tenTaiKhoan = ?";
         
-        try (Connection conn = connectDB.getInstance().getConnection(); // sửa chỗ này
+        try (Connection conn = MyConnection.getInstance().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             
-            ps.setString(1, tenDangNhap);
+            ps.setString(1, tenTaiKhoan);
             ResultSet rs = ps.executeQuery();
-            return rs.next(); // Trả về true nếu tồn tại, ngược lại là false
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }
