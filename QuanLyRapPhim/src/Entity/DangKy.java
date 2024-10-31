@@ -1,20 +1,20 @@
 package Entity;
 
-import java.time.LocalDate;
-
 public class DangKy {
-	private String tenDangNhap, hoTen, matKhau;
-	private boolean gioiTinh;
+	private String tenDangNhap;
+	private String hoTen;
 	private int SDT;
-	private LocalDate namSinh;
-	public DangKy(String tenDangNhap, String hoTen, String matKhau, boolean gioiTinh, int SDT, LocalDate namSinh) {
+	private String namSinh;
+	private boolean gioiTinh;
+	private String matKhau;
+	public DangKy(String tenDangNhap, String hoTen, int SDT, String namSinh, boolean gioiTinh, String matKhau) {
 		super();
 		this.tenDangNhap = tenDangNhap;
 		this.hoTen = hoTen;
-		this.matKhau = matKhau;
-		this.gioiTinh = gioiTinh;
 		this.SDT = SDT;
 		this.namSinh = namSinh;
+		this.gioiTinh = gioiTinh;
+		this.matKhau = matKhau;
 	}
 	public String getTenDangNhap() {
 		return tenDangNhap;
@@ -28,11 +28,17 @@ public class DangKy {
 	public void setHoTen(String hoTen) {
 		this.hoTen = hoTen;
 	}
-	public String getMatKhau() {
-		return matKhau;
+	public int getSDT() {
+		return SDT;
 	}
-	public void setMatKhau(String matKhau) {
-		this.matKhau = matKhau;
+	public void setSDT(int sDT) {
+		this.SDT = SDT;
+	}
+	public String getNamSinh() {
+		return namSinh;
+	}
+	public void setNamSinh(String namSinh) {
+		this.namSinh = namSinh;
 	}
 	public boolean isGioiTinh() {
 		return gioiTinh;
@@ -40,17 +46,12 @@ public class DangKy {
 	public void setGioiTinh(boolean gioiTinh) {
 		this.gioiTinh = gioiTinh;
 	}
-	public int getSDT() {
-		return SDT;
+	
+	public String getMatKhau() {
+		return matKhau;
 	}
-	public void setSDT(int sDT) {
-		this.SDT = SDT;
-	}
-	public LocalDate getNamSinh() {
-		return namSinh;
-	}
-	public void setNamSinh(LocalDate namSinh) {
-		this.namSinh = namSinh;
+	public void setMatKhau(String matKhau) {
+		this.matKhau = matKhau;
 	}
 	
 	

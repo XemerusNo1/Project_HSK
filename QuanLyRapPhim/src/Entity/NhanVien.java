@@ -1,23 +1,29 @@
 package Entity;
-
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class NhanVien {
-	private String maNV, tenNV;
-	private LocalDate namSinh;
-	private boolean gioiTinh;
-	public NhanVien(String maNV, String tenNV, LocalDate namSinh, boolean gioiTinh) {
+	private int maNV;
+    private String tenNV;
+    private String namSinh;
+    private String sdt;
+    private boolean gioiTinh;
+    private String tenTaiKhoan;
+    private String matKhau;
+	public NhanVien(int maNV, String tenNV, String namSinh, String sdt, boolean gioiTinh, String tenTaiKhoan,
+			String matKhau) {
 		super();
 		this.maNV = maNV;
 		this.tenNV = tenNV;
 		this.namSinh = namSinh;
+		this.sdt = sdt;
 		this.gioiTinh = gioiTinh;
+		this.tenTaiKhoan = tenTaiKhoan;
+		this.matKhau = matKhau;
 	}
-	public String getMaNV() {
+	public int getMaNV() {
 		return maNV;
 	}
-	public void setMaNV(String maNV) {
+	public void setMaNV(int maNV) {
 		this.maNV = maNV;
 	}
 	public String getTenNV() {
@@ -26,17 +32,35 @@ public class NhanVien {
 	public void setTenNV(String tenNV) {
 		this.tenNV = tenNV;
 	}
-	public LocalDate getNamSinh() {
+	public String getNamSinh() {
 		return namSinh;
 	}
-	public void setNamSinh(LocalDate namSinh) {
+	public void setNamSinh(String namSinh) {
 		this.namSinh = namSinh;
+	}
+	public String getSdt() {
+		return sdt;
+	}
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
 	}
 	public boolean isGioiTinh() {
 		return gioiTinh;
 	}
 	public void setGioiTinh(boolean gioiTinh) {
 		this.gioiTinh = gioiTinh;
+	}
+	public String getTenTaiKhoan() {
+		return tenTaiKhoan;
+	}
+	public void setTenTaiKhoan(String tenTaiKhoan) {
+		this.tenTaiKhoan = tenTaiKhoan;
+	}
+	public String getMatKhau() {
+		return matKhau;
+	}
+	public void setMatKhau(String matKhau) {
+		this.matKhau = matKhau;
 	}
 	@Override
 	public int hashCode() {
@@ -51,8 +75,9 @@ public class NhanVien {
 		if (getClass() != obj.getClass())
 			return false;
 		NhanVien other = (NhanVien) obj;
-		return Objects.equals(maNV, other.maNV);
+		return maNV == other.maNV;
 	}
+    
 	
 	
 	
