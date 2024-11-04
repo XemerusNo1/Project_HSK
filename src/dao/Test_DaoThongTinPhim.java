@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Test_DaoThongTinPhim extends JFrame {
-    private Dao_ThongTinPhim daoThongTinPhim;
+    private DAO_Ghe daoThongTinPhim;
     private JTextField txtMaPhim;
     private JTextField txtTieuDe;
 
     public Test_DaoThongTinPhim() {
-        daoThongTinPhim = new Dao_ThongTinPhim();
+        daoThongTinPhim = new DAO_Ghe();
         
         // Thiết lập giao diện
         setTitle("Kiểm tra Tiêu đề Phim");
@@ -52,7 +52,7 @@ public class Test_DaoThongTinPhim extends JFrame {
         
         // Kiểm tra nếu mã phim không rỗng
         if (!maPhim.isEmpty()) {
-            String tieuDe = daoThongTinPhim.getLinkAnhByMaPhim(maPhim);
+            String tieuDe = daoThongTinPhim.getGiaSanPhamTheoMaSP(maPhim);
             if (tieuDe != null) {
                 txtTieuDe.setText(tieuDe);
             } else {

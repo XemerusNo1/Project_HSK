@@ -11,7 +11,7 @@ public class Test_GDGhe {
         JFrame frame = new JFrame("Test Thong Tin Phim");
         
         // Thiết lập kích thước cho JFrame
-        frame.setSize(1100, 840);
+        frame.setSize(1100, 750);
         
         // Đảm bảo JFrame đóng khi nhấn nút đóng
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,4 +28,6 @@ public class Test_GDGhe {
         // Căn giữa JFrame trên màn hình
         frame.setLocationRelativeTo(null);
     }
+    
+    
 }

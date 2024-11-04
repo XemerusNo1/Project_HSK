@@ -28,6 +28,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 
 import dao.DAO_Ghe;
+import dulieutamthoi.ThongTinDatVe;
 
 public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 
@@ -39,11 +40,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	private JTextField txtGiaTien3;
 	private JTextField txtGiaTien4;
 	private JTextField txtsumTienDoAn;
-	private JTextField txtTenPhim;
-	private JTextField textGhe;
-	private JTextField txtSuatChieu;
-	private JTextField txtTongTien;
-	private JButton btnNewButton;
+	private JButton btnQuoayLai;
 	private DAO_Ghe daoGhe;
 
 	private JButton A01, A02, A03, A04, A05, A06, A07, A08, A09;
@@ -53,7 +50,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	private JButton E01, E02, E03, E04, E05, E06, E07, E08, E09;
 	private JButton F01, F02, F03, F04, F05;
 	private JButton[] buttons;
-	private JTextField txtgiaVe;
+	private JButton btnNext;
 
 
 //	public static void main(String[] args) {
@@ -75,7 +72,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	public GD_Ghe() {
 		
 		setBounds(100, 100, 450, 300);
-		setSize(1190, 800);
+		setSize(1100, 700);
 		contentPane = new JPanel();
 		
 		contentPane.setPreferredSize(new Dimension(1090, 800));
@@ -84,11 +81,11 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JPanel pnlCenter = new JPanel(); 
 		contentPane.add(pnlCenter, BorderLayout.CENTER);
 		
-		btnNewButton = new JButton("Quay lại");
-		btnNewButton.addActionListener(this);
-		btnNewButton.setIcon(new ImageIcon("src\\Images\\back.png"));
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
-		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnQuoayLai = new JButton("Quay lại");
+		btnQuoayLai.addActionListener(this);
+		btnQuoayLai.setIcon(new ImageIcon("src\\Images\\back.png"));
+		btnQuoayLai.setBackground(Color.LIGHT_GRAY);
+		btnQuoayLai.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -320,6 +317,11 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		txtsumTienDoAn.setEditable(false);
 		txtsumTienDoAn.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		txtsumTienDoAn.setColumns(10);
+		
+		btnNext = new JButton("Next");
+		btnNext.addActionListener(this);
+		btnNext.setBackground(Color.GREEN);
+		btnNext.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		GroupLayout gl_pnlCenter = new GroupLayout(pnlCenter);
 		gl_pnlCenter.setHorizontalGroup(
 			gl_pnlCenter.createParallelGroup(Alignment.LEADING)
@@ -327,7 +329,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 					.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(btnNewButton)
+							.addComponent(btnQuoayLai)
 							.addGap(383)
 							.addComponent(lblNewLabel))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
@@ -481,14 +483,16 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 														.addGroup(gl_pnlCenter.createSequentialGroup()
-															.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-															.addComponent(F05, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-															.addGap(9))
-														.addGroup(gl_pnlCenter.createSequentialGroup()
 															.addGap(41)
 															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 																.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-																.addComponent(txtsumTienDoAn, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))))))))))
+																.addComponent(txtsumTienDoAn, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))
+														.addGroup(Alignment.TRAILING, gl_pnlCenter.createSequentialGroup()
+															.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
+																.addComponent(btnNext)
+																.addComponent(F05, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+															.addGap(9))))))))))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addGap(85)
 							.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING, false)
@@ -509,7 +513,9 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 					.addContainerGap()
 					.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNewLabel)
-						.addComponent(btnNewButton))
+						.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnNext)
+							.addComponent(btnQuoayLai)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -644,106 +650,9 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 									.addComponent(txtGiaTien4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(16)
 									.addComponent(spinner4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(48, Short.MAX_VALUE))
+					.addContainerGap(148, Short.MAX_VALUE))
 		);
 		pnlCenter.setLayout(gl_pnlCenter);
-		
-		JPanel pnlSouth = new JPanel();
-		pnlSouth.setBorder(new EmptyBorder(5, 5, 5, 5));
-		pnlSouth.setBorder(new TitledBorder(null, "Vé Phim", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		pnlSouth.setPreferredSize(new Dimension(1100, 100));
-		contentPane.add(pnlSouth, BorderLayout.SOUTH);
-		
-		txtTenPhim = new JTextField();
-		txtTenPhim.setEditable(false);
-		txtTenPhim.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		txtTenPhim.setColumns(10);
-	
-		JLabel lblNewLabel_6 = new JLabel("Phim:");
-		lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		
-		JLabel lblNewLabel_6_1 = new JLabel("Ghế:");
-		lblNewLabel_6_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		
-		textGhe = new JTextField();
-		textGhe.setEditable(false);
-		textGhe.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		textGhe.setColumns(10);
-		
-		JLabel lblNewLabel_6_1_1 = new JLabel("giờ chiếu:");
-		lblNewLabel_6_1_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		
-		txtSuatChieu = new JTextField();
-		txtSuatChieu.setEditable(false);
-		txtSuatChieu.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		txtSuatChieu.setColumns(10);
-		
-		JLabel lblNewLabel_6_1_1_1 = new JLabel("Tổng Cộng:");
-		lblNewLabel_6_1_1_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		
-		txtTongTien = new JTextField();
-		txtTongTien.setEditable(false);
-		txtTongTien.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		txtTongTien.setColumns(10);
-		
-		JButton btnNewButton_4 = new JButton("Đặt Vé");
-		btnNewButton_4.setBackground(Color.RED);
-		btnNewButton_4.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		
-		JLabel lblNewLabel_6_1_2 = new JLabel("giá Vé:");
-		lblNewLabel_6_1_2.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		
-		txtgiaVe = new JTextField();
-		txtgiaVe.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		txtgiaVe.setEditable(false);
-		txtgiaVe.setColumns(10);
-		GroupLayout gl_pnlSouth = new GroupLayout(pnlSouth);
-		gl_pnlSouth.setHorizontalGroup(
-			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlSouth.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel_6)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_6_1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textGhe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNewLabel_6_1_1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtSuatChieu, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblNewLabel_6_1_2, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtgiaVe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(lblNewLabel_6_1_1_1)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnNewButton_4)
-					.addGap(91))
-		);
-		gl_pnlSouth.setVerticalGroup(
-			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pnlSouth.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_pnlSouth.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_6)
-						.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_6_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_6_1_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_6_1_2, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textGhe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_6_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtSuatChieu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtgiaVe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton_4))
-					.addContainerGap(36, Short.MAX_VALUE))
-		);
-		pnlSouth.setLayout(gl_pnlSouth);
 		// Gọi phương thức để đặt màu nền
 		setButtonBackground(new Color(212, 236, 239));
 		buttons = new JButton[]{
@@ -764,7 +673,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 
 		// Tính tổng tiền đồ ăn ngay khi mở giao diện
 		tinhTongTienDoAn();
-	
+
 		    
 	}
 
@@ -772,14 +681,33 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		 Object o = e.getSource();
-		    if (o.equals(btnNewButton)) {
+		    if (o.equals(btnQuoayLai)) {
 		        contentPane.removeAll();
 		        contentPane.add(new GD_ThongTinPhim(), BorderLayout.CENTER);
 		        contentPane.revalidate();
 		        contentPane.repaint();
 		    }
-	}
+		    if (o.equals(btnNext)) {
+		        // Xóa tất cả nội dung hiện tại trong contentPane
+		        contentPane.removeAll();
+		        saveSelection();
+		        System.out.println("Tổng tiền đồ ăn đã chọn ở trang ghế: " + ThongTinDatVe.getTongTienDoAn());
+		        
+		        // Thêm giao diện mới vào contentPane
+		        contentPane.add(new GD_DatVe(), BorderLayout.CENTER);
+		        contentPane.revalidate();
+		        contentPane.repaint();
+		        
+		        // Lưu giá trị tổng tiền vào bộ nhớ tạm trong ThongTinDatVe
+		        
+		    }
 
+	}
+	  public void saveSelection() {
+	        // Lưu thông tin ngày và giờ đã chọn vào SessionData
+		  String tongTien = txtsumTienDoAn.getText();
+	      ThongTinDatVe.setTongTienDoAn(tongTien);
+	    }
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -845,14 +773,14 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	    }
 	}
 	// Phương thức để thiết lập giá tiền cho một JTextField cụ thể
-	private void setTenPhimChoTextField(String maPhim, JTextField textField) {
+	private void setGiaTienChoTextField(String maSP, JTextField textField) {
 	    // Kiểm tra nếu daoGhe đã được khởi tạo
 	    if (daoGhe == null) {
 	        daoGhe = new DAO_Ghe();
 	    }
 	    
 	    // Lấy giá sản phẩm từ daoGhe
-	    String giaSanPham = daoGhe.getTenPhimByMaPhim(maPhim);
+	    String giaSanPham = daoGhe.getGiaSanPhamTheoMaSP(maSP);
 	    
 	    // Kiểm tra và cập nhật giá trị cho textField
 	    if (giaSanPham != null) {
@@ -882,8 +810,6 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	    } else {
 	        txtGiaTien.setText("Giá không có sẵn");
 	    }
-
-	    // Cập nhật tổng tiền đồ ăn khi giá của từng sản phẩm thay đổi
 	    tinhTongTienDoAn();
 	}
 
@@ -905,6 +831,10 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	    }
 
 	    // Hiển thị tổng tiền đồ ăn vào txtsumTienDoAn
-	    txtsumTienDoAn.setText(tongTienDoAn + " VNĐ");
+	    String tongTienStr = tongTienDoAn + " VNĐ";
+	    txtsumTienDoAn.setText(tongTienStr);
+
+	  
 	}
+
 }
