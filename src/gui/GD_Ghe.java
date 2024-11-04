@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -25,21 +27,24 @@ import javax.swing.SpinnerNumberModel;
 
 import javax.swing.border.TitledBorder;
 
+import dao.DAO_Ghe;
+
 public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtPhong;
-	private JTextField txtGiaTien;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textTienDoan;
+	private JTextField txtGiaTien1;
+	private JTextField txtGiaTien2;
+	private JTextField txtGiaTien3;
+	private JTextField txtGiaTien4;
+	private JTextField txtsumTienDoAn;
 	private JTextField txtTenPhim;
 	private JTextField textGhe;
 	private JTextField txtSuatChieu;
 	private JTextField txtTongTien;
 	private JButton btnNewButton;
+	private DAO_Ghe daoGhe;
 
 	private JButton A01, A02, A03, A04, A05, A06, A07, A08, A09;
 	private JButton B01, B02, B03, B04, B05, B06, B07, B08, B09;
@@ -48,6 +53,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	private JButton E01, E02, E03, E04, E05, E06, E07, E08, E09;
 	private JButton F01, F02, F03, F04, F05;
 	private JButton[] buttons;
+	private JTextField txtgiaVe;
 
 
 //	public static void main(String[] args) {
@@ -242,13 +248,13 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon("src\\Images\\BongNgo1.jpg"));
 		
-		JLabel lblNewLabel_4 = new JLabel("Bắp caramel");
+		JLabel lblNewLabel_4 = new JLabel("Bắp caramel : 25K");
 		lblNewLabel_4.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		txtGiaTien = new JTextField();
-		txtGiaTien.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		txtGiaTien.setEditable(false);
-		txtGiaTien.setColumns(10);
+		txtGiaTien1 = new JTextField();
+		txtGiaTien1.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		txtGiaTien1.setEditable(false);
+		txtGiaTien1.setColumns(10);
 		
 		JSpinner spinner1 = new JSpinner();
 		spinner1.setBackground(new Color(255, 255, 255));
@@ -259,13 +265,13 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JLabel lblNewLabel_3_1 = new JLabel("");
 		lblNewLabel_3_1.setIcon(new ImageIcon("src\\Images\\BongNgo2.jpg"));
 		
-		JLabel lblNewLabel_4_1 = new JLabel("Bắp Phô Mai");
+		JLabel lblNewLabel_4_1 = new JLabel("Bắp Phô Mai :25K");
 		lblNewLabel_4_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		textField.setEditable(false);
-		textField.setColumns(10);
+		txtGiaTien2 = new JTextField();
+		txtGiaTien2.setFont(new Font("Times New Roman", Font.PLAIN, 13));
+		txtGiaTien2.setEditable(false);
+		txtGiaTien2.setColumns(10);
 		
 		JSpinner spinner2 = new JSpinner();
 		spinner2.setForeground(Color.BLACK);
@@ -276,13 +282,13 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JLabel lblNewLabel_3_1_1 = new JLabel("");
 		lblNewLabel_3_1_1.setIcon(new ImageIcon("src\\Images\\Snack.jpg"));
 		
-		JLabel lblNewLabel_4_1_1 = new JLabel("Snack");
+		JLabel lblNewLabel_4_1_1 = new JLabel("Snack:10K");
 		lblNewLabel_4_1_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
+		txtGiaTien3 = new JTextField();
+		txtGiaTien3.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		txtGiaTien3.setEditable(false);
+		txtGiaTien3.setColumns(10);
 		
 		JSpinner spinner3 = new JSpinner();
 		spinner3.setForeground(Color.BLACK);
@@ -293,13 +299,13 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JLabel lblNewLabel_3_1_1_1 = new JLabel("");
 		lblNewLabel_3_1_1_1.setIcon(new ImageIcon("src\\Images\\CoCa.jpg"));
 		
-		JLabel lblNewLabel_4_1_1_1 = new JLabel("CoCa CoLa");
+		JLabel lblNewLabel_4_1_1_1 = new JLabel("CoCa CoLa:10K");
 		lblNewLabel_4_1_1_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		textField_2 = new JTextField();
-		textField_2.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
+		txtGiaTien4 = new JTextField();
+		txtGiaTien4.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		txtGiaTien4.setEditable(false);
+		txtGiaTien4.setColumns(10);
 		
 		JSpinner spinner4 = new JSpinner();
 		spinner4.setForeground(Color.BLACK);
@@ -310,10 +316,10 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JLabel lblNewLabel_5 = new JLabel("Tiền đồ ăn");
 		lblNewLabel_5.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		textTienDoan = new JTextField();
-		textTienDoan.setEditable(false);
-		textTienDoan.setFont(new Font("Times New Roman", Font.BOLD, 19));
-		textTienDoan.setColumns(10);
+		txtsumTienDoAn = new JTextField();
+		txtsumTienDoAn.setEditable(false);
+		txtsumTienDoAn.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		txtsumTienDoAn.setColumns(10);
 		GroupLayout gl_pnlCenter = new GroupLayout(pnlCenter);
 		gl_pnlCenter.setHorizontalGroup(
 			gl_pnlCenter.createParallelGroup(Alignment.LEADING)
@@ -343,77 +349,87 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 											.addComponent(txtPhong, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 										.addGroup(gl_pnlCenter.createSequentialGroup()
 											.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
-												.addComponent(F01, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 												.addGroup(gl_pnlCenter.createSequentialGroup()
-													.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING, false)
-														.addComponent(btnRong, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
+														.addComponent(F01, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 														.addGroup(gl_pnlCenter.createSequentialGroup()
-															.addGap(69)
-															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-																.addComponent(A01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-																.addComponent(B01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-																.addComponent(C01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-																.addComponent(D01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-																.addComponent(E01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))))
-													.addGap(27)))
-											.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
-												.addGroup(gl_pnlCenter.createSequentialGroup()
-													.addComponent(F02, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-													.addGap(84)
-													.addComponent(F03, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-												.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-													.addGroup(gl_pnlCenter.createSequentialGroup()
+															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING, false)
+																.addComponent(btnRong, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addGroup(gl_pnlCenter.createSequentialGroup()
+																	.addGap(69)
+																	.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																		.addComponent(A01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																		.addComponent(B01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																		.addComponent(C01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																		.addComponent(D01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																		.addComponent(E01, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))))
+															.addGap(27)))
+													.addGroup(gl_pnlCenter.createParallelGroup(Alignment.TRAILING)
+														.addGroup(gl_pnlCenter.createSequentialGroup()
+															.addComponent(F02, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+															.addGap(84)
+															.addComponent(F03, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
 														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(A02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(B02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(C02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(D02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(E02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-														.addGap(31)
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(A03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(B03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(C03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(D03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(E03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-														.addGap(35)
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(A04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(B04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(C04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(D04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(E04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-														.addGap(29)
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(A05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(B05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(C05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(D05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(E05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
-														.addGap(28)
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(A06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(B06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(C06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(D06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
-															.addComponent(E06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
-													.addGroup(gl_pnlCenter.createSequentialGroup()
-														.addComponent(btnDaDat)
-														.addGap(31)
-														.addComponent(btnDangChon, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
-													.addGroup(gl_pnlCenter.createSequentialGroup()
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(lblNewLabel_3_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-															.addComponent(lblNewLabel_4_1, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-															.addComponent(textField, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-														.addGap(49)
-														.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-															.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-															.addComponent(lblNewLabel_4_1_1, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-															.addComponent(lblNewLabel_3_1_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 															.addGroup(gl_pnlCenter.createSequentialGroup()
-																.addGap(10)
-																.addComponent(spinner3, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))))))
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(A02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(B02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(C02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(D02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(E02, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+																.addGap(31)
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(A03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(B03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(C03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(D03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(E03, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+																.addGap(35)
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(A04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(B04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(C04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(D04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(E04, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+																.addGap(29)
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(A05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(B05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(C05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(D05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(E05, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE))
+																.addGap(28)
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(A06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(B06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(C06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(D06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(E06, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)))
+															.addGroup(gl_pnlCenter.createSequentialGroup()
+																.addComponent(btnDaDat)
+																.addGap(31)
+																.addComponent(btnDangChon, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+															.addGroup(gl_pnlCenter.createSequentialGroup()
+																.addGap(46)
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addGroup(gl_pnlCenter.createSequentialGroup()
+																		.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																			.addComponent(lblNewLabel_3_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(lblNewLabel_4_1, GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+																		.addPreferredGap(ComponentPlacement.RELATED, 18, GroupLayout.PREFERRED_SIZE))
+																	.addGroup(gl_pnlCenter.createSequentialGroup()
+																		.addComponent(txtGiaTien2, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.RELATED)))
+																.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
+																	.addComponent(lblNewLabel_4_1_1, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(lblNewLabel_3_1_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(txtGiaTien3, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
+																.addGap(44)))))
+												.addGroup(gl_pnlCenter.createSequentialGroup()
+													.addComponent(spinner2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+													.addGap(157)
+													.addComponent(spinner3, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+													.addGap(100)))
 											.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 												.addGroup(gl_pnlCenter.createSequentialGroup()
 													.addGap(16)
@@ -459,30 +475,29 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 														.addGroup(gl_pnlCenter.createSequentialGroup()
 															.addPreferredGap(ComponentPlacement.RELATED)
 															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-																.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblNewLabel_4_1_1_1, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblNewLabel_3_1_1_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))))
+																.addComponent(txtGiaTien4, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblNewLabel_3_1_1_1, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblNewLabel_4_1_1_1, GroupLayout.PREFERRED_SIZE, 182, GroupLayout.PREFERRED_SIZE))))
+													.addPreferredGap(ComponentPlacement.RELATED)
 													.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 														.addGroup(gl_pnlCenter.createSequentialGroup()
-															.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+															.addPreferredGap(ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
 															.addComponent(F05, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
 															.addGap(9))
 														.addGroup(gl_pnlCenter.createSequentialGroup()
 															.addGap(41)
 															.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-																.addComponent(textTienDoan, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblNewLabel_5, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))))))))))
+																.addComponent(lblNewLabel_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+																.addComponent(txtsumTienDoAn, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)))))))))))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addGap(85)
 							.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(lblNewLabel_3)
-								.addComponent(txtGiaTien, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-								.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(txtGiaTien1, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addGap(104)
-							.addComponent(spinner1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-							.addGap(131)
-							.addComponent(spinner2, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+							.addComponent(spinner1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addGap(95)
 							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 958, GroupLayout.PREFERRED_SIZE)))
@@ -595,39 +610,41 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblNewLabel_4)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtGiaTien, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtGiaTien1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(spinner1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
+							.addGap(5)
 							.addComponent(lblNewLabel_3_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblNewLabel_4_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(txtGiaTien2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(12)
 							.addComponent(spinner2, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_pnlCenter.createSequentialGroup()
 							.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_pnlCenter.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblNewLabel_3_1_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_pnlCenter.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblNewLabel_4_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblNewLabel_4_1_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel_4_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblNewLabel_5)))
 								.addComponent(lblNewLabel_3_1_1_1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_pnlCenter.createParallelGroup(Alignment.LEADING)
-								.addComponent(textTienDoan, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtsumTienDoAn, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_pnlCenter.createSequentialGroup()
-									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(txtGiaTien3, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
 									.addComponent(spinner3, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_pnlCenter.createSequentialGroup()
-									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(txtGiaTien4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(16)
 									.addComponent(spinner4, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(40, Short.MAX_VALUE))
+					.addContainerGap(48, Short.MAX_VALUE))
 		);
 		pnlCenter.setLayout(gl_pnlCenter);
 		
@@ -639,26 +656,26 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		
 		txtTenPhim = new JTextField();
 		txtTenPhim.setEditable(false);
-		txtTenPhim.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		txtTenPhim.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		txtTenPhim.setColumns(10);
-		
+	
 		JLabel lblNewLabel_6 = new JLabel("Phim:");
-		lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel_6.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		
 		JLabel lblNewLabel_6_1 = new JLabel("Ghế:");
-		lblNewLabel_6_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		lblNewLabel_6_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		
 		textGhe = new JTextField();
 		textGhe.setEditable(false);
-		textGhe.setFont(new Font("Times New Roman", Font.BOLD, 11));
+		textGhe.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		textGhe.setColumns(10);
 		
-		JLabel lblNewLabel_6_1_1 = new JLabel("Suất:");
-		lblNewLabel_6_1_1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		JLabel lblNewLabel_6_1_1 = new JLabel("giờ chiếu:");
+		lblNewLabel_6_1_1.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		
 		txtSuatChieu = new JTextField();
 		txtSuatChieu.setEditable(false);
-		txtSuatChieu.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		txtSuatChieu.setFont(new Font("Times New Roman", Font.BOLD, 10));
 		txtSuatChieu.setColumns(10);
 		
 		JLabel lblNewLabel_6_1_1_1 = new JLabel("Tổng Cộng:");
@@ -672,6 +689,14 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		JButton btnNewButton_4 = new JButton("Đặt Vé");
 		btnNewButton_4.setBackground(Color.RED);
 		btnNewButton_4.setFont(new Font("Times New Roman", Font.BOLD, 19));
+		
+		JLabel lblNewLabel_6_1_2 = new JLabel("giá Vé:");
+		lblNewLabel_6_1_2.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		
+		txtgiaVe = new JTextField();
+		txtgiaVe.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		txtgiaVe.setEditable(false);
+		txtgiaVe.setColumns(10);
 		GroupLayout gl_pnlSouth = new GroupLayout(pnlSouth);
 		gl_pnlSouth.setHorizontalGroup(
 			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
@@ -679,22 +704,26 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 					.addContainerGap()
 					.addComponent(lblNewLabel_6)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
+					.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNewLabel_6_1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textGhe, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-					.addGap(31)
-					.addComponent(lblNewLabel_6_1_1, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+					.addComponent(textGhe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel_6_1_1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtSuatChieu, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
+					.addComponent(lblNewLabel_6_1_2, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(txtgiaVe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(lblNewLabel_6_1_1_1)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-					.addGap(116)
+					.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addComponent(btnNewButton_4)
-					.addContainerGap(339, Short.MAX_VALUE))
+					.addGap(91))
 		);
 		gl_pnlSouth.setVerticalGroup(
 			gl_pnlSouth.createParallelGroup(Alignment.LEADING)
@@ -704,13 +733,15 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 						.addComponent(lblNewLabel_6)
 						.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_6_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_6_1_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_6_1_2, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textGhe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_6_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtSuatChieu, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_6_1_1_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtTongTien, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtgiaVe, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnNewButton_4))
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addContainerGap(36, Short.MAX_VALUE))
 		);
 		pnlSouth.setLayout(gl_pnlSouth);
 		// Gọi phương thức để đặt màu nền
@@ -723,6 +754,17 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		        E01, E02, E03, E04, E05, E06, E07, E08, E09,
 		        F01, F02, F03, F04, F05
 		    };
+	
+		
+		// Thiết lập ChangeListener cho các spinner để cập nhật giá tiền sản phẩm và tổng tiền đồ ăn
+		spinner1.addChangeListener(e -> tinhTienSanPham("SP01", txtGiaTien1, spinner1));
+		spinner2.addChangeListener(e -> tinhTienSanPham("SP02", txtGiaTien2, spinner2));
+		spinner3.addChangeListener(e -> tinhTienSanPham("SP03", txtGiaTien3, spinner3));
+		spinner4.addChangeListener(e -> tinhTienSanPham("SP04", txtGiaTien4, spinner4));
+
+		// Tính tổng tiền đồ ăn ngay khi mở giao diện
+		tinhTongTienDoAn();
+	
 		    
 	}
 
@@ -802,6 +844,67 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	        button.setBackground(color);
 	    }
 	}
+	// Phương thức để thiết lập giá tiền cho một JTextField cụ thể
+	private void setTenPhimChoTextField(String maPhim, JTextField textField) {
+	    // Kiểm tra nếu daoGhe đã được khởi tạo
+	    if (daoGhe == null) {
+	        daoGhe = new DAO_Ghe();
+	    }
+	    
+	    // Lấy giá sản phẩm từ daoGhe
+	    String giaSanPham = daoGhe.getTenPhimByMaPhim(maPhim);
+	    
+	    // Kiểm tra và cập nhật giá trị cho textField
+	    if (giaSanPham != null) {
+	        textField.setText(giaSanPham + " VNĐ");
+	    } else {
+	        textField.setText("Giá không có sẵn");
+	    }
+	}
 
+	// Phương thức để tính tiền cho từng sản phẩm và cập nhật vào JTextField tương ứng
+	private void tinhTienSanPham(String maSP, JTextField txtGiaTien, JSpinner spinner) {
+	    if (daoGhe == null) {
+	        daoGhe = new DAO_Ghe();
+	    }
 
+	    // Lấy giá sản phẩm từ database
+	    String giaSanPhamStr = daoGhe.getGiaSanPhamTheoMaSP(maSP);
+
+	    // Kiểm tra nếu giá sản phẩm hợp lệ
+	    if (giaSanPhamStr != null) {
+	        BigDecimal giaSanPham = new BigDecimal(giaSanPhamStr);
+	        int soLuong = (Integer) spinner.getValue();
+	        BigDecimal tongGia = giaSanPham.multiply(new BigDecimal(soLuong));
+	        
+	        // Cập nhật tổng giá của sản phẩm vào JTextField tương ứng
+	        txtGiaTien.setText(tongGia + " VNĐ");
+	    } else {
+	        txtGiaTien.setText("Giá không có sẵn");
+	    }
+
+	    // Cập nhật tổng tiền đồ ăn khi giá của từng sản phẩm thay đổi
+	    tinhTongTienDoAn();
+	}
+
+	// Phương thức để tính tổng tiền của tất cả sản phẩm và cập nhật vào txtsumTienDoAn
+	private void tinhTongTienDoAn() {
+	    BigDecimal tongTienDoAn = BigDecimal.ZERO;
+
+	    // Lấy giá từ txtGiaTien của từng sản phẩm và cộng vào tổng tiền
+	    for (JTextField txtGiaTien : Arrays.asList(txtGiaTien1, txtGiaTien2, txtGiaTien3, txtGiaTien4)) {
+	        try {
+	            String giaStr = txtGiaTien.getText().replace(" VNĐ", "");
+	            if (!giaStr.isEmpty()) {
+	                BigDecimal gia = new BigDecimal(giaStr);
+	                tongTienDoAn = tongTienDoAn.add(gia);
+	            }
+	        } catch (NumberFormatException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // Hiển thị tổng tiền đồ ăn vào txtsumTienDoAn
+	    txtsumTienDoAn.setText(tongTienDoAn + " VNĐ");
+	}
 }
