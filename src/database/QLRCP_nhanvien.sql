@@ -141,13 +141,14 @@ VALUES
 	(N'P08',	N'LOOK BACK',	N'Hoạt hình',	N'Kiyotaka Oshiyama',	98,		N'Fujino tự tin thái quá, trong khi Kyomoto lại sống khép kín, cả hai dường như không thể khác biệt hơn, nhưng tình yêu mãnh liệt dành cho manga đã trở thành sợi dây duy nhất kết nối họ. Thế nhưng, một ngày nọ, một biến cố đã xảy ra, khiến thế giới của họ hoàn toàn thay đổi…',N'src\\Images\\MoDomDom.jpg', 50000.00),
 	(N'P09',	N'ROBOT HOANG DÃ',		N'Hoạt hình',	N'Chris Sanders',128,		N'Cuộc phiêu lưu hoành tráng theo chân hành trình của một robot — đơn vị ROZZUM 7134, gọi tắt là Roz.Roz vô tình dạt vào hoang đảo sau một sự cố và nơi đây trở thành địa điểm sống mới của cô. Tại đây, Roz kết thân và nhận nuôi một chú ngỗng con, đặt tên là Brightbill..',N'src\\Images\\MoDomDom.jpg', 85000.00);
 -- insert dữ liệu cho table phòng
+Go
 	INSERT INTO Phong (maPhong, tongSoGhe) VALUES 
 	('Phong01', 50),
 	('Phong02', 50),
 	('Phong03', 50),
 	('Phong04', 50),
 	('Phong05', 50);
-
+Go
 INSERT INTO Ghe (maGhe, maPhong, loaiGhe, giaGhe) VALUES
     ('A01', 'Phong01', N'Ghế thường', 0.00),
     ('A02', 'Phong01', N'Ghế thường', 0.00),
@@ -206,7 +207,12 @@ INSERT INTO Ghe (maGhe, maPhong, loaiGhe, giaGhe) VALUES
     ('F05', 'Phong01', N'Ghế Đôi', 50000.00);
 
 
-
+Go
+INSERT INTO SanPham (maSP, tenSP, giaBan) VALUES
+	('SP01', N'Bắp caramel', 25000.00),
+	('SP02', N'Bắp Phô mai', 25000.00),
+	('SP03', N'Snack', 10000.00),
+	('SP04', N'CoCaCoLa', 10000.00);
 
 
 
