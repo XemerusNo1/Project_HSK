@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -42,7 +43,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	private JTextField txtsumTienDoAn;
 	private JButton btnQuoayLai;
 	private DAO_Ghe daoGhe;
-
+	private ThongTinDatVe ve ;
 	private JButton A01, A02, A03, A04, A05, A06, A07, A08, A09;
 	private JButton B01, B02, B03, B04, B05, B06, B07, B08, B09;
 	private JButton C01, C02, C03, C04, C05, C06, C07, C08, C09;
@@ -51,6 +52,8 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	private JButton F01, F02, F03, F04, F05;
 	private JButton[] buttons;
 	private JButton btnNext;
+	private List<String> danhSachGhe;
+  
 
 
 //	public static void main(String[] args) {
@@ -112,6 +115,7 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		lblNewLabel_1_5.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		
 		txtPhong = new JTextField();
+		txtPhong.setText("Phong01");
 		txtPhong.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPhong.setEditable(false);
 		txtPhong.setColumns(10);
@@ -663,7 +667,9 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		        E01, E02, E03, E04, E05, E06, E07, E08, E09,
 		        F01, F02, F03, F04, F05
 		    };
-	
+		for (JButton btn : buttons) {
+			btn.addActionListener(this);
+		};
 		
 		// Thiết lập ChangeListener cho các spinner để cập nhật giá tiền sản phẩm và tổng tiền đồ ăn
 		spinner1.addChangeListener(e -> tinhTienSanPham("SP01", txtGiaTien1, spinner1));
@@ -673,8 +679,12 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 
 		// Tính tổng tiền đồ ăn ngay khi mở giao diện
 		tinhTongTienDoAn();
-
-		    
+		String maPhong =txtPhong.getText();
+	
+		String ngaychieu = ve.getSelectedDate();
+		String GioChieu = ve.getSelectedTime();
+//		danhSachGhe = daoGhe.getDanhSachGhe(maPhong, GioChieu, ngaychieu);
+//		disableBookedSeats();   
 	}
 
 	@Override
@@ -690,24 +700,20 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		    if (o.equals(btnNext)) {
 		        // Xóa tất cả nội dung hiện tại trong contentPane
 		        contentPane.removeAll();
-		        saveSelection();
 		        System.out.println("Tổng tiền đồ ăn đã chọn ở trang ghế: " + ThongTinDatVe.getTongTienDoAn());
-		        
+		        System.out.println("Ghế đã chọn: " + ThongTinDatVe.getSelectedSeats());
 		        // Thêm giao diện mới vào contentPane
 		        contentPane.add(new GD_DatVe(), BorderLayout.CENTER);
 		        contentPane.revalidate();
 		        contentPane.repaint();
 		        
-		        // Lưu giá trị tổng tiền vào bộ nhớ tạm trong ThongTinDatVe
+		        // In danh sách ghế đã chọn để kiểm tra
+		        
 		        
 		    }
 
 	}
-	  public void saveSelection() {
-	        // Lưu thông tin ngày và giờ đã chọn vào SessionData
-		  String tongTien = txtsumTienDoAn.getText();
-	      ThongTinDatVe.setTongTienDoAn(tongTien);
-	    }
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -718,10 +724,10 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	    // TODO Auto-generated method stub
 	    Object o = e.getSource();
 	    
-	    // Xử lý các nút button đổi màu khi chọn ghế
+	    // Xử lý các nút button đổi màu và đưa vào bộ nhớ tạm
 	    for (JButton btn : buttons) {
             if (o.equals(btn)) {
-                toggleButtonColor(btn);
+            	toggleSeatSelection(btn);
                 
             }
         }
@@ -746,18 +752,22 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 		
 	}
 	
-	//Phương thức đổi màu nền của button
-	private void toggleButtonColor(JButton button) {
-	 Color originalColor = new Color(212, 236, 239); 
-	 Color selectedColor = Color.RED; 
-	
-	 // Kiểm tra màu hiện tại của button và đổi màu
-	 if (button.getBackground().equals(originalColor)) {
-	     button.setBackground(selectedColor);
-	 } else {
-	     button.setBackground(originalColor);
-	 	}
-	}
+
+	 // Phương thức xử lý thêm/xóa button khỏi bộ nhớ tạm và đổi màu
+    private void toggleSeatSelection(JButton button) {
+        String seatName = button.getText();
+        Color originalColor = new Color(212, 236, 239); 
+   	 	Color selectedColor = Color.RED; 
+        if (ThongTinDatVe.getSelectedSeats().contains(seatName)) {
+            // Nếu đã chọn, xóa khỏi danh sách và đặt lại màu gốc
+            ThongTinDatVe.getSelectedSeats().remove(seatName);
+            button.setBackground(originalColor);
+        } else {
+            // Nếu chưa chọn, thêm vào danh sách và đổi màu đã chọn
+            ThongTinDatVe.addSelectedSeat(seatName);
+            button.setBackground(selectedColor);
+        }
+    }
 	private void setButtonBackground(Color color) {
 	    JButton[] buttons = {
 	        A01, A02, A03, A04, A05, A06, A07, A08, A09,
@@ -772,17 +782,14 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	        button.setBackground(color);
 	    }
 	}
+	
 	// Phương thức để thiết lập giá tiền cho một JTextField cụ thể
 	private void setGiaTienChoTextField(String maSP, JTextField textField) {
-	    // Kiểm tra nếu daoGhe đã được khởi tạo
 	    if (daoGhe == null) {
 	        daoGhe = new DAO_Ghe();
 	    }
 	    
-	    // Lấy giá sản phẩm từ daoGhe
 	    String giaSanPham = daoGhe.getGiaSanPhamTheoMaSP(maSP);
-	    
-	    // Kiểm tra và cập nhật giá trị cho textField
 	    if (giaSanPham != null) {
 	        textField.setText(giaSanPham + " VNĐ");
 	    } else {
@@ -795,17 +802,12 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	    if (daoGhe == null) {
 	        daoGhe = new DAO_Ghe();
 	    }
-
-	    // Lấy giá sản phẩm từ database
 	    String giaSanPhamStr = daoGhe.getGiaSanPhamTheoMaSP(maSP);
-
-	    // Kiểm tra nếu giá sản phẩm hợp lệ
 	    if (giaSanPhamStr != null) {
 	        BigDecimal giaSanPham = new BigDecimal(giaSanPhamStr);
 	        int soLuong = (Integer) spinner.getValue();
 	        BigDecimal tongGia = giaSanPham.multiply(new BigDecimal(soLuong));
 	        
-	        // Cập nhật tổng giá của sản phẩm vào JTextField tương ứng
 	        txtGiaTien.setText(tongGia + " VNĐ");
 	    } else {
 	        txtGiaTien.setText("Giá không có sẵn");
@@ -816,8 +818,6 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	// Phương thức để tính tổng tiền của tất cả sản phẩm và cập nhật vào txtsumTienDoAn
 	private void tinhTongTienDoAn() {
 	    BigDecimal tongTienDoAn = BigDecimal.ZERO;
-
-	    // Lấy giá từ txtGiaTien của từng sản phẩm và cộng vào tổng tiền
 	    for (JTextField txtGiaTien : Arrays.asList(txtGiaTien1, txtGiaTien2, txtGiaTien3, txtGiaTien4)) {
 	        try {
 	            String giaStr = txtGiaTien.getText().replace(" VNĐ", "");
@@ -829,12 +829,29 @@ public class GD_Ghe extends JPanel implements ActionListener, MouseListener{
 	            e.printStackTrace();
 	        }
 	    }
-
+	  
+	     
+	      ThongTinDatVe.setTongTienDoAn(tongTienDoAn);
+	    
 	    // Hiển thị tổng tiền đồ ăn vào txtsumTienDoAn
 	    String tongTienStr = tongTienDoAn + " VNĐ";
 	    txtsumTienDoAn.setText(tongTienStr);
 
 	  
 	}
+	// set các ghế đã được chọn
+    public void disableBookedSeats() {
+        // Duyệt qua tất cả các ghế trong danh sách và thay đổi trạng thái các nút
+        for (JButton button : buttons) {
+            String buttonText = button.getText();  // Lấy tên ghế từ button
+
+            // Kiểm tra xem ghế này có tồn tại trong danh sách ghế đã đặt không
+            if (danhSachGhe.contains(buttonText)) {
+                button.setBackground(Color.GRAY);  // Đổi màu nền thành xám
+                button.setEnabled(false);  // Tắt khả năng nhấn
+            }
+        }
+    }
+    
 
 }

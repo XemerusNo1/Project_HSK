@@ -10,23 +10,14 @@ GO
 CREATE TABLE Phim (
     maPhim VARCHAR(50) PRIMARY KEY,
     tenPhim NVARCHAR(255),
-	theLoai NVARCHAR(255),
+    theLoai NVARCHAR(255),
     daoDien VARCHAR(100),
     ThoiLuong INT,
     moTa NVARCHAR(MAX),
-	linkAnh VARCHAR(255),
-	giaphim DECIMAL(10, 2)
+    linkAnh VARCHAR(255),
+    giaphim DECIMAL(10, 2)
 );
-
 GO
-
-
-
-
-
-
-
-
 
 -- Table Phong
 CREATE TABLE Phong (
@@ -35,65 +26,63 @@ CREATE TABLE Phong (
 );
 GO
 
--- Table ThoiGianChieu
+-- Table ThoiGianChieu (Auto-generated primary key)
 CREATE TABLE ThoiGianChieu (
-    maGioChieu VARCHAR(50) PRIMARY KEY,
+    maGioChieu INT IDENTITY(1,1) PRIMARY KEY,
     maPhim VARCHAR(50),
     maPhong VARCHAR(50),
-    GioChieu DATETIME,
-    gioKetThuc DATETIME,
-    giaXemPhim DECIMAL(18, 2),
+    GioChieu NVARCHAR(50),
+	NgayChieu NVARCHAR(50),
+    
     FOREIGN KEY (maPhim) REFERENCES Phim(maPhim),
-    FOREIGN KEY (maPhong) REFERENCES Phong(maPhong) -- Liên kết Phòng với ThoiGianChieu
+    FOREIGN KEY (maPhong) REFERENCES Phong(maPhong)
 );
 GO
+
 
 -- Table Ghe
 CREATE TABLE Ghe (
     maGhe VARCHAR(50) PRIMARY KEY,
     maPhong VARCHAR(50),
-	loaiGhe NVARCHAR(50),
-	giaGhe DECIMAL(10, 2),
+    loaiGhe NVARCHAR(50),
+    giaGhe DECIMAL(10, 2),
     FOREIGN KEY (maPhong) REFERENCES Phong(maPhong)
 );
-
-
 GO
 
 -- Table NhanVien
 CREATE TABLE NhanVien (
     maNV INT IDENTITY(1,1) PRIMARY KEY,
     tenNV NVARCHAR(255),
-    namSinh VARCHAR(15), -- Đổi kiểu dữ liệu thành DATE
+    namSinh DATE, 
     sdt VARCHAR(15),
     gioiTinh BIT,
-	tenTaiKhoan VARCHAR(80),
-	matKhau VARCHAR(30),
+    tenTaiKhoan VARCHAR(80),
+    matKhau VARCHAR(30)
 );
-
 GO
 
--- Table HoaDon
+-- Table HoaDon (Auto-generated primary key)
 CREATE TABLE HoaDon (
-    maHoaDon VARCHAR(50) PRIMARY KEY,
-    maNV INT,
+    maHoaDon INT IDENTITY(1,1) PRIMARY KEY,
+    maNV INT NULL,
     tongTien DECIMAL(18, 2),
     ngayBan DATE,
-    FOREIGN KEY (maNV) REFERENCES NhanVien(maNV) -- Liên kết HoaDon với NhanVien
+    FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
 );
 GO
-
--- Table VePhim
+-- DELETE FROM ThoiGianChieu;
+-- Table VePhim (Auto-generated primary key)
 CREATE TABLE VePhim (
-    maVe VARCHAR(50) PRIMARY KEY,
-    maGioChieu VARCHAR(50),
-    maHoaDon VARCHAR(50),
+    maVe INT IDENTITY(1,1) PRIMARY KEY,
+    maGioChieu INT,
+    maHoaDon INT,
     giaVe DECIMAL(18, 2),
-    SoLuongGheDaDat INT, -- Sửa lỗi chính tả
+    SoLuongGheDaDat INT, 
+    danhSachGhe VARCHAR(MAX),
     FOREIGN KEY (maGioChieu) REFERENCES ThoiGianChieu(maGioChieu),
-    FOREIGN KEY (maHoaDon) REFERENCES HoaDon(maHoaDon) -- Liên kết VePhim với HoaDon
+    FOREIGN KEY (maHoaDon) REFERENCES HoaDon(maHoaDon)
 );
-
 GO
 
 -- Table SanPham
@@ -104,26 +93,27 @@ CREATE TABLE SanPham (
 );
 GO
 
--- Table SanPhamOrder
+-- Table SanPhamOrder (Auto-generated primary key)
 CREATE TABLE SanPhamOrder (
-    maOrderSP VARCHAR(50) PRIMARY KEY,
+    maOrderSP INT IDENTITY(1,1) PRIMARY KEY,
     maSP VARCHAR(50),
-    maHoaDon VARCHAR(50),
+    maHoaDon INT,
     SoLuong INT,
     thanhTien DECIMAL(18, 2),
     FOREIGN KEY (maSP) REFERENCES SanPham(maSP),
-    FOREIGN KEY (maHoaDon) REFERENCES HoaDon(maHoaDon) -- Liên kết SanPhamOrder với HoaDon
+    FOREIGN KEY (maHoaDon) REFERENCES HoaDon(maHoaDon)
 );
 GO
 
--- Table BaoCaoDoanhThu
+-- Table BaoCaoDoanhThu (Auto-generated primary key)
 CREATE TABLE BaoCaoDoanhThu (
-    maBaoCao VARCHAR(50) PRIMARY KEY,
+    maBaoCao INT IDENTITY(1,1) PRIMARY KEY,
     TongDoanhThu DECIMAL(18, 2),
     maNV INT,
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
 );
 GO
+
 --- in insert dữ liêu và viết hàm store sau phần tạo table tránh có khả năng gây ra lỗi 
 --insert dữ liệu viết ở đây
 --DELETE FROM Phim;
@@ -149,6 +139,7 @@ Go
 	('Phong04', 50),
 	('Phong05', 50);
 Go
+
 INSERT INTO Ghe (maGhe, maPhong, loaiGhe, giaGhe) VALUES
     ('A01', 'Phong01', N'Ghế thường', 0.00),
     ('A02', 'Phong01', N'Ghế thường', 0.00),
@@ -200,11 +191,11 @@ INSERT INTO Ghe (maGhe, maPhong, loaiGhe, giaGhe) VALUES
     ('E08', 'Phong01', N'Ghế thường', 0.00),
     ('E09', 'Phong01', N'Ghế thường', 0.00),
 
-    ('F01', 'Phong01', N'Ghế Đôi', 50000.00),
-    ('F02', 'Phong01', N'Ghế Đôi', 50000.00),
-    ('F03', 'Phong01', N'Ghế Đôi', 50000.00),
-    ('F04', 'Phong01', N'Ghế Đôi', 50000.00),
-    ('F05', 'Phong01', N'Ghế Đôi', 50000.00);
+    ('F01_Đôi', 'Phong01', N'Ghế Đôi', 50000.00),
+    ('F02_Đôi', 'Phong01', N'Ghế Đôi', 50000.00),
+    ('F03_Đôi', 'Phong01', N'Ghế Đôi', 50000.00),
+    ('F04_Đôi', 'Phong01', N'Ghế Đôi', 50000.00),
+    ('F05_Đôi', 'Phong01', N'Ghế Đôi', 50000.00);
 
 
 Go
@@ -214,6 +205,8 @@ INSERT INTO SanPham (maSP, tenSP, giaBan) VALUES
 	('SP03', N'Snack', 10000.00),
 	('SP04', N'CoCaCoLa', 10000.00);
 
+INSERT INTO HoaDon (maNV, tongTien, ngayBan)
+	VALUES (NULL, 150000.00, '2024-11-05');
 
 
 GO
@@ -231,26 +224,7 @@ BEGIN
     WHERE tenTaiKhoan = @tenTaiKhoan AND matKhau = @matKhau;
 END;
 --store lấy dữ liệu phim lên thông tin phim
-GO
-CREATE PROCEDURE sp_LayThongTinPhimTheoMaPhim
-    @maPhim VARCHAR(50)
-AS
-BEGIN
-    -- Lấy thông tin phim theo mã phim
-    SELECT 
-        maPhim,
-		theLoai,
-        tenPhim,
-        daoDien,
-        ThoiLuong,
-        moTa,
-        namPhatHanh
-    FROM 
-        Phim
-    WHERE 
-        maPhim = @maPhim;
-END;
--- lấy tiêu đề theo mã phim
+
 GO
 CREATE PROCEDURE sp_LayTenPhimTheoMaPhim
     @maPhim VARCHAR(50)
@@ -329,4 +303,41 @@ BEGIN
     WHERE 
         maPhim = @maPhim;
 END;
-EXEC sp_LayLinkAnhTheoMaPhim @maPhim = 'P01';
+GO
+-- lấy giá phim theo mã 
+CREATE PROCEDURE sp_LayGiaPhimTheoMaPhim
+    @maPhim VARCHAR(50)
+AS
+BEGIN
+    SELECT 
+        giaphim
+    FROM 
+        Phim
+    WHERE 
+        maPhim = @maPhim;
+END;
+GO
+-- lấy giá ghế theo mã ghế
+CREATE PROCEDURE sp_LayGiaGheTheoMaGhe
+    @maGhe VARCHAR(50)
+AS
+BEGIN
+    SELECT giaGhe FROM Ghe WHERE maGhe = @maGhe;
+END;
+GO
+CREATE PROCEDURE GetDanhSachGhe 
+    @maPhong VARCHAR(50),
+    @GioChieu NVARCHAR(50),
+    @NgayChieu NVARCHAR(50)
+AS
+BEGIN
+    SELECT vp.danhSachGhe
+    FROM VePhim vp
+    JOIN ThoiGianChieu tg ON vp.maGioChieu = tg.maGioChieu
+    WHERE tg.maPhong = @maPhong
+      AND tg.GioChieu = @GioChieu
+      AND tg.NgayChieu = @NgayChieu;
+END;
+GO
+
+EXEC sp_LayGiaPhimTheoMaPhim  @maPhim = 'P01';

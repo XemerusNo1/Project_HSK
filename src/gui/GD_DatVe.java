@@ -6,20 +6,28 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.toedter.calendar.JDateChooser;
+
 import dao.DAO_DatVe;
 import dulieutamthoi.ThongTinDatVe;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.List;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.ImageIcon;
 
 public class GD_DatVe extends JPanel implements ActionListener {
@@ -38,6 +46,10 @@ public class GD_DatVe extends JPanel implements ActionListener {
 	private DAO_DatVe daoDatVe;
 	private JTextField txtGioChieu;
 	private JButton btnQuayLai;
+	private JDateChooser txtNgayTao;
+	private BigDecimal SumGiaVe =  setTongTien();
+	private JButton btnDatVe;
+	private Double tongTienGhe;
 	
 
 	/**
@@ -115,14 +127,16 @@ public class GD_DatVe extends JPanel implements ActionListener {
 		txtTienVe.setEditable(false);
 		txtTienVe.setColumns(10);
 		
-		JButton btnNewButton = new JButton("Đặt Vé");
-		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnNewButton.setBackground(Color.GREEN);
+		btnDatVe = new JButton("Đặt Vé");
+		btnDatVe.addActionListener(this);
+		btnDatVe.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnDatVe.setBackground(Color.GREEN);
 		
 		JLabel lblPhng = new JLabel("Phòng:");
 		lblPhng.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		txtPhong = new JTextField();
+		txtPhong.setText("Phong01");
 		txtPhong.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		txtPhong.setEditable(false);
 		txtPhong.setColumns(10);
@@ -140,58 +154,75 @@ public class GD_DatVe extends JPanel implements ActionListener {
 		btnQuayLai.setIcon(new ImageIcon("src\\Images\\back.png"));
 		btnQuayLai.setBackground(Color.LIGHT_GRAY);
 		btnQuayLai.setFont(new Font("Times New Roman", Font.BOLD, 17));
+		
+		JLabel lblNgyTo = new JLabel("Ngày Tạo:");
+		lblNgyTo.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		
+		txtNgayTao = new JDateChooser();
+		txtNgayTao.setSize(new Dimension(30, 20));
+		txtNgayTao.setDateFormatString("yyyy-MM-dd");
+		txtNgayTao.setDate(new java.util.Date());
+		txtNgayTao.getDateEditor().setEnabled(false);
+	
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap(198, Short.MAX_VALUE)
 					.addComponent(btnQuayLai)
 					.addGap(108)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnDatVe, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
 					.addGap(132))
-				.addGroup(gl_panel.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addGap(49)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblPhng, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblNgyTo, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panel.createSequentialGroup()
-								.addComponent(lblGhNgi, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPhng, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
 								.addContainerGap())
-							.addGroup(gl_panel.createSequentialGroup()
-								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(lblTinn, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-										.addGap(18)
-										.addComponent(txtTienDoAn, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(lblTngTinV, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-										.addComponent(txtTienVe, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(lblTenPhim)
-										.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-										.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(lblGiChiu, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-										.addComponent(txtNgayChieu, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(lblGi, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-										.addGap(29)
-										.addComponent(txtGioChieu, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE))
-									.addGroup(gl_panel.createSequentialGroup()
-										.addComponent(lblGiXemPhim, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-											.addGroup(gl_panel.createSequentialGroup()
-												.addComponent(txtGhe, GroupLayout.PREFERRED_SIZE, 288, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(txtSLGhe, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-											.addComponent(txtGiaGhe, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-											.addComponent(txtPhong, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))))
-								.addGap(101)))))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblGhNgi, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblTinn, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+											.addGap(18)
+											.addComponent(txtTienDoAn, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblTenPhim)
+											.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+											.addComponent(txtTenPhim, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblGiChiu, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+											.addComponent(txtNgayChieu, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(lblGi, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+											.addGap(29)
+											.addComponent(txtGioChieu, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblGiXemPhim, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(txtGhe, GroupLayout.PREFERRED_SIZE, 288, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addComponent(txtSLGhe, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+												.addComponent(txtGiaGhe, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
+												.addComponent(txtPhong, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblTngTinV, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(txtNgayTao)
+												.addComponent(txtTienVe, GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE))))
+									.addGap(101))))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -202,10 +233,10 @@ public class GD_DatVe extends JPanel implements ActionListener {
 						.addComponent(lblTenPhim))
 					.addGap(25)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtNgayChieu, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtGioChieu, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblGi, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblGiChiu, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblGiChiu, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtNgayChieu, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(27)
@@ -231,23 +262,34 @@ public class GD_DatVe extends JPanel implements ActionListener {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtTienVe, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTngTinV, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+					.addGap(18)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(btnQuayLai))
-					.addGap(111))
+						.addComponent(lblNgyTo, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtNgayTao, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnQuayLai)
+						.addComponent(btnDatVe))
+					.addGap(85))
 		);
 		panel.setLayout(gl_panel);
 		
 		
 		
-		setGiaTienChoTextField();
+		setThongTinVeTextField();
 		setTienDoan() ;
-	}
+		updateSeatSelection();
+		tongTienGhe = setTongGiaGhe();
+		txtGiaGhe.setText(String.format("%.2f VNĐ", tongTienGhe));
+
+	    
+	    
+	    txtTienVe.setText(String.format("%.2f VNĐ", SumGiaVe));
 	
+}
+
 	// Phương thức để thiết lập giá tiền cho txtGiaTien1
-	private void setGiaTienChoTextField() {
-	    // Kiểm tra nếu daoGhe đã được khởi tạo
+	private void setThongTinVeTextField() {
 		String maPhim1 = ve.getMaPhim();
 		String ngaychieu = ve.getSelectedDate();
 		String GioChieu = ve.getSelectedTime();
@@ -255,11 +297,7 @@ public class GD_DatVe extends JPanel implements ActionListener {
 	    if (daoDatVe == null) {
 	    	daoDatVe = new DAO_DatVe();
 	    }
-	    
-	    // Lấy giá sản phẩm từ daoGhe
 	    String tenPhim = daoDatVe.getTenPhimByMaPhim(maPhim1);
-	    
-	    // Kiểm tra và cập nhật giá trị cho txtGiaTien1
 	    if (tenPhim != null) {
 	    	txtTenPhim.setText(tenPhim);
 	    	txtNgayChieu.setText(ngaychieu);
@@ -270,20 +308,89 @@ public class GD_DatVe extends JPanel implements ActionListener {
 	    }
 	}
 	
-	// set tiền đồ ăn
+	// phương thúc tính tổng tiền đồ ăn 
 	public void setTienDoan() {
-		if (daoDatVe == null) {
-	    	daoDatVe = new DAO_DatVe();
+	    if (daoDatVe == null) {
+	        daoDatVe = new DAO_DatVe();
 	    }
-	
-		String tienDoAn = ve.getTongTienDoAn();
-	
-		if (tienDoAn != null && !tienDoAn.isEmpty()) {
-	        txtTienDoAn.setText(tienDoAn);
+
+	    BigDecimal tienDoAn = ThongTinDatVe.getTongTienDoAn(); 
+	    if (tienDoAn != null && tienDoAn.compareTo(BigDecimal.ZERO) > 0) { 
+	        txtTienDoAn.setText(String.format("%.2f VNĐ", tienDoAn));
 	    } else {
-	        txtTienDoAn.setText("0.00" +"VNĐ");
+	        txtTienDoAn.setText("0.00 VNĐ");
 	    }
 	}
+
+
+	// Set the seat cost and update total
+	public double setTongGiaGhe() {
+	    if (daoDatVe == null) {
+	        daoDatVe = new DAO_DatVe();
+	    }
+
+	    String maPhim1 = ve.getMaPhim();
+	    List<String> selectedSeats = ThongTinDatVe.getSelectedSeats();
+
+	    double giaPhim = daoDatVe.getGiaPhimByMaPhim(maPhim1);
+	    double tongGiaGhe = 0.0;
+
+	    for (String maGhe : selectedSeats) {
+	        tongGiaGhe += daoDatVe.getGiaGheByMaGhe(maGhe);
+	    }
+
+	    double tongTien = giaPhim + tongGiaGhe;
+	    return tongTien;
+	}
+	
+
+	
+	// Calculate and set the total cost by summing food and seat costs
+	public BigDecimal setTongTien() {
+	    if (daoDatVe == null) {
+	        daoDatVe = new DAO_DatVe();
+	    }
+
+	    // Retrieve food cost
+	    BigDecimal tienDoAn = ThongTinDatVe.getTongTienDoAn();
+	    if (tienDoAn == null) {
+	        tienDoAn = BigDecimal.ZERO;
+	    }
+
+	    // Retrieve seat cost
+	    String maPhim1 = ThongTinDatVe.getMaPhim();
+	    List<String> selectedSeats = ThongTinDatVe.getSelectedSeats();
+
+	    double giaPhim = daoDatVe.getGiaPhimByMaPhim(maPhim1);
+	    double tongGiaGhe = 0.0;
+
+	    for (String maGhe : selectedSeats) {
+	        tongGiaGhe += daoDatVe.getGiaGheByMaGhe(maGhe);
+	    }
+
+	    // Convert tongGiaGhe to BigDecimal and calculate total
+	    BigDecimal tongGiaGheBD = BigDecimal.valueOf(tongGiaGhe);
+	    BigDecimal tongTien = tienDoAn.add(tongGiaGheBD.add(BigDecimal.valueOf(giaPhim)));
+
+	    return tongTien;
+	   
+	}
+
+
+
+
+	
+	private void updateSeatSelection() {
+	    // Lấy danh sách ghế đã chọn từ bộ nhớ tạm
+	    List<String> selectedSeats = ThongTinDatVe.getSelectedSeats(); 
+
+	    // Cập nhật txtGhe với danh sách ghế đã chọn, nối tên các ghế thành một chuỗi
+	    txtGhe.setText(String.join(", ", selectedSeats));
+
+	    // Cập nhật txtSLGhe với số lượng ghế đã chọn
+	    txtSLGhe.setText(String.valueOf(selectedSeats.size()));
+	}
+
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -294,6 +401,28 @@ public class GD_DatVe extends JPanel implements ActionListener {
 	        contentPane.add(new GD_Ghe(), BorderLayout.CENTER);
 	        contentPane.revalidate();
 	        contentPane.repaint();
+	    }
+	    if (o.equals(btnDatVe)) {
+	    	// insert table thời gian chiếu
+	    	String maPhim = ve.getMaPhim();
+			String maPhong = txtPhong.getText();
+			String GioChieu = ve.getSelectedTime();
+			String NgayChieu = ve.getSelectedDate();
+			int maGioChieu = daoDatVe.insertThoiGianChieu(maPhim, maPhong, GioChieu, NgayChieu);
+			
+	        // Gọi phương thức insertHoaDon và lưu giá trị trả về	    
+	        java.util.Date ngayTao = txtNgayTao.getDate(); 
+	        java.sql.Date ngayBan = new java.sql.Date(ngayTao.getTime());
+	        int maHoaDon = daoDatVe.insertHoaDon(SumGiaVe, ngayBan); 
+
+	        // Kiểm tra nếu maHoaDon hợp lệ trước khi chèn vào SanPhamOrder
+	        if (maHoaDon > 0 && maGioChieu > 0 ) {
+	        	int SLGhe = Integer.parseInt(txtSLGhe.getText());
+	        	String danhSachGhe = txtGhe.getText();
+	        	daoDatVe.insertVePhim(maGioChieu, maHoaDon, tongTienGhe, SLGhe, danhSachGhe);
+	        } else {
+	            System.out.println("Failed to insert HoaDon, SanPhamOrder not inserted.");
+	        }
 	    }
 	}
 
